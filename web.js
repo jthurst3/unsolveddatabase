@@ -8,7 +8,7 @@ var about = "about.html";
 
 
 app.get('/', function(request, response) {
-  var buffer = new Buffer(fs.readFileSync("index.html"));
+  var buffer = new Buffer(fs.readFileSync("about.html"));
   response.send(buffer.toString());
 });
 
