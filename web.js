@@ -5,6 +5,7 @@ var app = express.createServer(express.logger());
 var fs = require('fs');
 
 var about = "about.html";
+var logo = "Calabi-Yau-alternate.png";
 
 
 app.get('/', function(request, response) {
@@ -14,6 +15,11 @@ app.get('/', function(request, response) {
 
 app.get('/about', function(request, response) {
 	var buffer = new Buffer(fs.readFileSync(about));
+	response.send(buffer.toString());
+});
+
+app.get('/pic', function(request, response) {
+	var buffer = new Buffer(fs.readFilesync(logo));
 	response.send(buffer.toString());
 });
 
