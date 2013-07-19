@@ -4,12 +4,13 @@ var app = express.createServer(express.logger());
 
 var fs = require('fs');
 
+var index = "index.html";
 var about = "about.html";
 var logo = "Calabi-Yau-alternate.png";
 
 
 app.get('/', function(request, response) {
-  var buffer = new Buffer(fs.readFileSync("index.html"));
+  var buffer = new Buffer(fs.readFileSync(index));
   response.send(buffer.toString());
 });
 

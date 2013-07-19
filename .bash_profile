@@ -1,0 +1,1 @@
+alias add='git add .'

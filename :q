@@ -2,9 +2,7 @@
 <!-- created mostly with reference to https://spark-public.s3.amazonaws.com/startup/images/part1-instructions.pdf-->
 <html lang="en">
   <head>
-    <title>Unsolved Problems Database</title>
-	<!-- from http://byronknoll.blogspot.com/2011/02/greatest-unsolved-problems.html -->
-	<link rel="icon" href="/pic" />
+    <title>My First Bitstarter</title>
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap-combined.no-icons.min.css">
@@ -114,8 +112,8 @@
 				  <a class="brand" href="#">Unsolved Problems</a>
 				  <div class="nav-collapse collapse">
 					  <ul class="nav">
-						  <li class="active"><a href="#">Homepage</a></li>
-						  <li><a href="/about">About</a></li>
+						  <li class="active"><a href="index.html">Homepage</a></li>
+						  <li><a href="about.html">About</a></li>
 						  <li><a href="#contact">Contact</a></li>
 					  </ul>
 				  </div>
@@ -128,7 +126,7 @@
 		</div>
 		<div class="row-fluid subheading">
 			<div class="span12"> 
-				<p class="lead">Your resource for learning about the greatest unsolved problems in academia.</p>
+				<p class="lead">Database of unsolved problems (edit this!)</p>
 			</div>
 		</div>
 		<div class="row-fluid pitch">
@@ -176,7 +174,7 @@
 	            <!-- Social buttons are not included in default Bootstrap. -->
 	            <!-- See: http://noizwaves.github.io/bootstrap-social-buttons -->
 	            <button class="btn btn-twitter"><i class="icon-twitter"></i> | Twitter</button>
-	            <a href="http://www.facebook.com"><button class="btn btn-facebook"><i class="icon-facebook"></i> | Facebook</button></a>
+	            <button class="btn btn-facebook"><i class="icon-facebook"></i> | Facebook</button>
 	          </div>
 	        </div>
 	      </div>
@@ -196,7 +194,7 @@
             <p>
 				Paragraph for writing about the site. Should also create at least one "unsolved problem page"
 				and link it to this homepage.
-				Here is the <a href="/pic">picture</a>.
+				
             </p>
           </div>
         </div>
