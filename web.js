@@ -7,7 +7,7 @@ var fs = require('fs');
 var index = "index.html";
 var about = "about.html";
 var logo = "Calabi-Yau-alternate.png";
-var style = "mainStyle.css";
+//var style = "mainStyle.css";
 
 
 app.get('/', function(request, response) {
@@ -25,10 +25,10 @@ app.get('/pic', function(request, response) {
 	response.send(buffer.toString());
 });
 
-app.get('/mainStyle', function(request, response) {
+/*app.get('/mainStyle', function(request, response) {
 	var buffer = new Buffer(fs.readFilesync(style));
 	response.send(buffer.toString());
-});
+});*/
 
 var port = process.env.PORT || 8080;
 app.listen(port, function() {
