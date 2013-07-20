@@ -1,7 +1,7 @@
 /* large desktop */
 @media (min-width: 980px) {
 	body {
-		padding-top: 100px;
+		padding-top: 60px;
 	}
 	.linediv-l {
 		border-right: 1px white solid;
