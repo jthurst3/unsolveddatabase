@@ -5,10 +5,12 @@ var fs = require('fs');
 var app = express.createServer(express.logger());
 var port = process.env.PORT || 8080;
 
+// technique from https://github.com/sjuvekar/3Dthon/blob/master/web.js
+app.use(express.static("/assets"));
+
 var index = "index.html";
 var about = "about.html";
-var logo = "Calabi-Yau-alternate.png";
-var style = "mainStyle.css";
+//var logo = "Calabi-Yau-alternate.png";
 
 
 app.get('/', function(request, response) {
