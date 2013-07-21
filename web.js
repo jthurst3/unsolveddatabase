@@ -1,6 +1,6 @@
 // inspired by http://stackoverflow.com/questions/12134554/node-js-external-js-and-css-fiels-just-using-node-js-not-express
 
-var http = require('express');
+var express = require('express');
 var fs = require('fs');
 var app = express.createServer(express.logger());
 var port = process.env.PORT || 8080;
