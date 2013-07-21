@@ -1,8 +1,8 @@
-var express = require('express');
+// inspired by http://stackoverflow.com/questions/12134554/node-js-external-js-and-css-fiels-just-using-node-js-not-express
 
-var app = express.createServer(express.logger());
-
+var http = require('express');
 var fs = require('fs');
+var port = process.env.PORT || 8080;
 
 var index = "index.html";
 var about = "about.html";
@@ -25,12 +25,11 @@ app.get('/pic', function(request, response) {
 	response.send(buffer.toString());
 });
 
-app.get('mainStyle.css', function(request, response) {
+app.get('/style', function(request, response) {
 	var buffer = new Buffer(fs.readFilesync(style));
 	response.send(buffer.toString());
 });
 
-var port = process.env.PORT || 8080;
 app.listen(port, function() {
-  console.log("Listening on " + port);
+	console.log("Listening on " + port);
 });
