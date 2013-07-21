@@ -2,6 +2,7 @@
 
 var http = require('express');
 var fs = require('fs');
+var app = express.createServer(express.logger());
 var port = process.env.PORT || 8080;
 
 var index = "index.html";
