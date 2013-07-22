@@ -23,7 +23,7 @@ app.get('/about', function(request, response) {
 	response.send(buffer.toString());
 });
 
-app.get('/pic', function(request, response) {
+/*app.get('/pic', function(request, response) {
 	var buffer = new Buffer(fs.readFilesync(logo));
 	response.send(buffer.toString());
 });
@@ -31,7 +31,7 @@ app.get('/pic', function(request, response) {
 app.get('/style', function(request, response) {
 	var buffer = new Buffer(fs.readFilesync(style));
 	response.send(buffer.toString());
-});
+});*/
 
 app.listen(port, function() {
 	console.log("Listening on " + port);
