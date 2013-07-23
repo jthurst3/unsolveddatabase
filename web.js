@@ -10,6 +10,8 @@ app.use(express.static("/assets"));
 
 var index = "index.html";
 var about = "about.html";
+var contact = "contact.html";
+var collatz = "problem/collatz.html";
 //var logo = "Calabi-Yau-alternate.png";
 
 
@@ -20,6 +22,16 @@ app.get('/', function(request, response) {
 
 app.get('/about', function(request, response) {
 	var buffer = new Buffer(fs.readFileSync(about));
+	response.send(buffer.toString());
+});
+
+app.get('/contact', function(request, response) {
+	var buffer = new Buffer(fs.readFileSync(contact));
+	response.send(buffer.toString());
+});
+
+app.get('/problem/collatz', function(request, response) {
+	var buffer = new Buffer(fs.readFileSync(collatz));
 	response.send(buffer.toString());
 });
 
