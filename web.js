@@ -37,7 +37,7 @@ app.get('/problem/collatz', function(request, response) {
 });
 
 app.get('/style', function(request, response) {
-	var buffer = new Buffer(fs.readFilesync(style));
+	var buffer = new Buffer(style);
 	response.send(buffer.toString());
 });
 
