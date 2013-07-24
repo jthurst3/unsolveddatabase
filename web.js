@@ -7,11 +7,12 @@ var port = process.env.PORT || 8080;
 
 // technique from https://github.com/sjuvekar/3Dthon/blob/master/web.js
 app.use(express.static("/assets"));
+app.use(express.static("/problem"));
 
 var index = "index.html";
 var about = "about.html";
 var contact = "contact.html";
-var collatz = "problem/collatz.html";
+var collatz = "collatz.html";
 //var logo = "Calabi-Yau-alternate.png";
 
 
