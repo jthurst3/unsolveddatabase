@@ -9,9 +9,10 @@ var port = process.env.PORT || 8080;
 app.use(express.static("/assets"));
 
 var index = "index.html";
-var about = "assets/css/about.html";
+var about = "about.html";
 var contact = "contact.html";
 var collatz = "problem/collatz.html";
+var style = "assets/css/mainStyle.css";
 //var logo = "Calabi-Yau-alternate.png";
 
 
@@ -20,7 +21,7 @@ app.get('/', function(request, response) {
   response.send(buffer.toString());
 });
 
-app.get('/css/about', function(request, response) {
+app.get('/about', function(request, response) {
 	var buffer = new Buffer(fs.readFileSync(about));
 	response.send(buffer.toString());
 });
@@ -35,13 +36,13 @@ app.get('/problem/collatz', function(request, response) {
 	response.send(buffer.toString());
 });
 
-/*app.get('/pic', function(request, response) {
-	var buffer = new Buffer(fs.readFilesync(logo));
+app.get('/style', function(request, response) {
+	var buffer = new Buffer(fs.readFilesync(style));
 	response.send(buffer.toString());
 });
 
-app.get('/style', function(request, response) {
-	var buffer = new Buffer(fs.readFilesync(style));
+/*app.get('/pic', function(request, response) {
+	var buffer = new Buffer(fs.readFilesync(logo));
 	response.send(buffer.toString());
 });*/
 
