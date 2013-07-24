@@ -32,7 +32,7 @@ app.get('/contact', function(request, response) {
 });
 
 app.get('/problem/collatz', function(request, response) {
-	var buffer = new Buffer(fs.readFileSync(collatz));
+	var buffer = new Buffer(fs.readFileSync(__dirname + collatz));
 	response.send(buffer.toString());
 });
 
