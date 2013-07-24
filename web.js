@@ -9,7 +9,7 @@ var port = process.env.PORT || 8080;
 app.use(express.static("/assets"));
 
 var index = "index.html";
-var about = "/css/about.html";
+var about = "assets/css/about.html";
 var contact = "contact.html";
 var collatz = "problem/collatz.html";
 //var logo = "Calabi-Yau-alternate.png";
