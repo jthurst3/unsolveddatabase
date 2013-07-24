@@ -6,7 +6,7 @@ var app = express.createServer(express.logger());
 var port = process.env.PORT || 8080;
 
 // technique from https://github.com/sjuvekar/3Dthon/blob/master/web.js
-app.use(express.static("/assets"));
+app.use("/assets", express.static(__dirname + "/assets"));
 
 var index = "index.html";
 var about = "about.html";
