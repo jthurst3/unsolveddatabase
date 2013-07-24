@@ -9,7 +9,7 @@ var port = process.env.PORT || 8080;
 app.use(express.static("/assets"));
 
 var index = "index.html";
-var about = "about.html";
+var about = "/css/about.html";
 var contact = "contact.html";
 var collatz = "problem/collatz.html";
 //var logo = "Calabi-Yau-alternate.png";
@@ -20,7 +20,7 @@ app.get('/', function(request, response) {
   response.send(buffer.toString());
 });
 
-app.get('/about', function(request, response) {
+app.get('/css/about', function(request, response) {
 	var buffer = new Buffer(fs.readFileSync(about));
 	response.send(buffer.toString());
 });
