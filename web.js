@@ -3,7 +3,7 @@
 var express = require('express');
 var fs = require('fs');
 var app = express.createServer(express.logger());
-var port = process.env.PORT || 8080 || 8124;
+var port = process.env.PORT || 8080;
 
 // technique from https://github.com/sjuvekar/3Dthon/blob/master/web.js
 app.use("/assets", express.static(__dirname + "/assets"));

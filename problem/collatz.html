@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <title>Collatz Conjecture</title>
+	<link rel="icon" href="/assets/img/favicon.ico">
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
@@ -11,89 +12,7 @@
     <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fjquery.js"></script>
     <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap.js"></script>
 	<link href="css/bootstrap-responsive.css" rel="stylesheet">
-	<style type="text/css">
-	/* large desktop */
-	@media (min-width: 980px) {
-		body {
-			padding-top: 100px;
-		}
-		.linediv-l {
-			border-right: 1px white solid;
-		}
-		.linediv-r {
-			border-left: 1px white solid;
-		}
-	}
-	@media (max-width: 480px) {
-		.copy {
-			padding: 2.5% 10%;
-		}
-		.linediv-l {
-			border-bottom: 1px white solid;
-		}
-		.linediv-r {
-			border-top: 1px white solid;
-		}
-	}
-
-	/* main body and headings */
-	    body {
-	    /*padding-top: 20px;
-	    padding-bottom: 40px;*/
-	  font-family: 'Open Sans', Helvetica, Arial, Sans-Serif;
-	    }
-	  .heading, .subheading {
-	  	font-family: 'Ubuntu', Helvetica, Arial, Sans-Serif;
-		text-align: center;
-	  }
-  
-	    p.lead {
-	    padding-top: 1.5%;
-	  font-size: 24px;
-	  line-height: 30px;
-	}
-	p {
-	  font-size: 18px;
-	  line-height: 24px;
-	}
-	/* video pitch and action */
-	.pitch {
-	  padding: 2.5% 0%;
-	}
-	.order {
-	  padding: 2% 0%;
-	}
-	.actions {
-	  background-color: #343434;
-	  padding: 3% 0%;
-	}
-	    .video, .thermometer, .order, .social, .statistics {
-	     text-align: center;
-	    }
-	  .statistics h3, .statistics p {
-		  color: white;
-	  }
-  
-	  /* marketing copy and footer */
-	  .copy {
-		  padding-top: 2.5%;
-		  padding-bottom: 2.5%;
-		  text-align: justify;
-	  }
-	  .asset {
-		  padding: 2.5% 0%;
-	  }
-	  .footer {
-		  color: #cccccc;
-		  text-align: center;
-	  }
-	  .footer p {
-		  font-size: 11px;
-	  }
-	  .footer a {
-		  color: #ccccff;
-	  }
-	</style>
+	<link href="/assets/css/mainStyle.css" rel="stylesheet" >
 </head>
 <body>
   <div class="navbar navbar-inverse navbar-fixed-top">
@@ -107,7 +26,7 @@
 			  <a class="brand" href="/">Unsolved Problems</a>
 			  <div class="nav-collapse collapse">
 				  <ul class="nav">
-					  <li class="active"><a href="/">Homepage</a></li>
+					  <li><a href="/">Homepage</a></li>
 					  <li><a href="/about">About</a></li>
 					  <li><a href="#contact">Contact</a></li>
 				  </ul>
@@ -125,12 +44,16 @@
 		</div>
 	</div>
   </div>
-  <h3>
-	  Pick any natural number (1, 2, 3, ...).
-	  If it's even, divide it by 2.
-	  If it's odd, multiply it by 3 and add 1.
-	  Keep doing this, and stop if you get to 1 (for example, 10 --> 5 --> 16 --> 8 --> 4 --> 2 --> 1).
-	  Question: do you always get to 1, no matter what number you pick?
-  </h3>
+  <div class="row-fluid section">
+    <div class="span5 offset1 asset">
+		<p>
+			Pick any natural number (1, 2, 3, ...).
+			If it's even, divide it by 2.<br>
+			If it's odd, multiply it by 3 and add 1.
+			Keep doing this, and stop if you get to 1 (for example, 10 --> 5 --> 16 --> 8 --> 4 --> 2 --> 1).
+			Question: do you always get to 1, no matter what number you pick?
+		</p>
+	</div>
+</div>
 </body>
 </html>
