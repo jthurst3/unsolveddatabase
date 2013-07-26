@@ -14,7 +14,8 @@ var contact = "contact.html";
 var header = "header.htm";
 var collatz = "problem/collatz.html";
 var style = "assets/css/mainStyle.css";
-//var logo = "Calabi-Yau-alternate.png";
+
+var math = "math.html";
 
 
 app.get('/', function(request, response) {
@@ -39,6 +40,11 @@ app.get('/header', function(request, response) {
 
 app.get('/problem/collatz', function(request, response) {
 	var buffer = new Buffer(fs.readFileSync(collatz));
+	response.send(buffer.toString());
+});
+
+app.get('/math', function(request, response) {
+	var buffer = new Buffer(fs.readFileSync(math));
 	response.send(buffer.toString());
 });
 

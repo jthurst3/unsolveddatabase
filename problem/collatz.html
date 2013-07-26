@@ -14,7 +14,7 @@
 	<link href="css/bootstrap-responsive.css" rel="stylesheet">
 	<link href="/assets/css/mainStyle.css" rel="stylesheet" >
 </head>
-<body>
+<body data-spy="scroll" data-target=".bs-docs-sidebar">
   <div class="navbar navbar-inverse navbar-fixed-top">
 	  <div class="navbar-inner">
 		  <div class="container">
@@ -34,26 +34,46 @@
 		  </div>
 	  </div>
   </div>
-  <div class="container">
-	<div class="row-fluid heading">
-		<div class="span12"><h1>Collatz Conjecture</h1></div>
-	</div>
-	<div class="row-fluid subheading">
-		<div class="span12"> 
-			<p class="lead">Mathematics -- Number Theory</p>
-		</div>
-	</div>
+  <div class="row">
+	  <div class="span3">
+		  <a href="/"><img src="/assets/img/logo.svg" style="max-width:50%; display:block; margin-left:auto; margin-right:auto;"/></a>
+	  </div>
+	  <div class="span9">
+		  <div class="row-fluid heading">
+			  <div class="span12"><h1>Collatz Conjecture</h1></div>
+		  </div>
+		  <div class="row-fluid subheading">
+			  <div class="span12"> 
+				  <p class="lead">Mathematics -- Number Theory</p>
+			  </div>
+		  </div>
+	  </div>
   </div>
-  <div class="row-fluid section">
-    <div class="span5 offset1 asset">
-		<p>
-			Pick any natural number (1, 2, 3, ...).
-			If it's even, divide it by 2.<br>
-			If it's odd, multiply it by 3 and add 1.
-			Keep doing this, and stop if you get to 1 (for example, 10 --> 5 --> 16 --> 8 --> 4 --> 2 --> 1).
-			Question: do you always get to 1, no matter what number you pick?
-		</p>
-	</div>
-</div>
+  <div class="row">
+	  <!-- from http://twitter.github.io/bootstrap/components.html -->
+	  <div class="span3 bs-docs-sidebar">
+	          <ul class="nav nav-list bs-docs-sidenav">
+	            <li><a href="#description"><i class="icon-chevron-right"></i>Description</a></li>
+	            <li><a href="#statement"><i class="icon-chevron-right"></i>Formal Statement</a></li>
+	            <li><a href="#examples"><i class="icon-chevron-right"></i>Examples</a></li>
+	            <li><a href="#history"><i class="icon-chevron-right"></i>History</a></li>
+	            <li><a href="#implications"><i class="icon-chevron-right"></i>Implications</a></li>
+	            <li><a href="#references"><i class="icon-chevron-right"></i>References</a></li>
+	          </ul>
+		  </div>
+		  <div class="span9">
+			  <section id="description">
+				  <h3>Description</h3>
+				  <hr>
+		  		<p>
+		  			Pick any natural number (1, 2, 3, ...).
+		  			If it's even, divide it by 2.<br>
+		  			If it's odd, multiply it by 3 and add 1.
+		  			Keep doing this, and stop if you get to 1 (for example, 10 --> 5 --> 16 --> 8 --> 4 --> 2 --> 1).
+		  			Question: do you always get to 1, no matter what number you pick?
+		  		</p>
+			  </section>
+		  </div>
+  </div>
 </body>
 </html>
