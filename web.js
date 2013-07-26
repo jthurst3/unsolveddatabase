@@ -8,9 +8,10 @@ var port = process.env.PORT || 8080;
 // technique from https://github.com/sjuvekar/3Dthon/blob/master/web.js
 app.use("/assets", express.static(__dirname + "/assets"));
 
-var index = "index.html";
+var index = "index.shtml";
 var about = "about.html";
 var contact = "contact.html";
+var header = "header.html";
 var collatz = "problem/collatz.html";
 var style = "assets/css/mainStyle.css";
 //var logo = "Calabi-Yau-alternate.png";
@@ -28,6 +29,11 @@ app.get('/about', function(request, response) {
 
 app.get('/contact', function(request, response) {
 	var buffer = new Buffer(fs.readFileSync(contact));
+	response.send(buffer.toString());
+});
+
+app.get('/header', function(request, response) {
+	var buffer = new Buffer(fs.readFileSync(header));
 	response.send(buffer.toString());
 });
 
