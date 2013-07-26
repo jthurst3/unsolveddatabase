@@ -24,7 +24,7 @@
     </head>
   <body>
 	  <!-- navigation pane -->
-	  <!--#include virtual="/header" -->
+	  <?php include("header.php"); ?>
     <div class="container">
 		<div class="row-fluid heading">
 			<div class="span12"><h1>The Unsolved Problems Database</h1></div>
