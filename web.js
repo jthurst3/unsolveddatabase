@@ -13,7 +13,9 @@ var about = "about.html";
 var contact = "contact.html";
 var header = "header.htm";
 var collatz = "problem/collatz.html";
+
 var style = "assets/css/mainStyle.css";
+var github = "assets/css/github.css";
 
 var math = "math.html";
 

@@ -20,15 +20,10 @@
 	<script src="/assets/js/jquery.js"></script>
 	
 	<link href="/assets/css/mainStyle.css" rel="stylesheet" >
+	<link href="/assets/css/github.css" rel="stylesheet" >
 	<link href="http://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type="text/css">
   </head>
-  <body data-spy="scroll" data-target=".bs-docs-sidebar">
-	  <!-- idea copied from pitery.herokuapp.com -->
-	  <div class="github-fork-ribbon-wrapper right fixed">
-	          <div class="github-fork-ribbon">
-	              <a href="https://class.coursera.org/startup-001/class/index">Made for the Coursera<br /><span class="smalltext">Stanford Startup Engineering Course</span></a>
-	          </div>
-	      </div>
+  <body>
 	  <!-- navigation pane -->
 	  <div class="navbar navbar-inverse navbar-fixed-top">
 	    <div class="navbar-inner">
@@ -49,6 +44,12 @@
 	  	  </div>
 	    </div>
 	  </div>
+	  <!-- idea copied from pitery.herokuapp.com -->
+	  <div class="github-fork-ribbon-wrapper right fixed">
+	          <div class="github-fork-ribbon">
+	              <a href="https://class.coursera.org/startup-001/class/index">Made for the Coursera<br /><span class="smalltext">Stanford Startup Engineering Course</span></a>
+	          </div>
+	      </div>
 	  <div class="row">
 		  <div class="span3">
 			  <a href="/"><img src="/assets/img/logo.svg" style="max-width:50%; display:block; margin-left:auto; margin-right:auto;"/></a>
@@ -64,7 +65,7 @@
 			  </div>
 		  </div>
 	  </div>
-    <div class="row">
+    <div class="row-fluid">
   	  <div class="span3 bs-docs-sidebar">
   	          <ul class="nav nav-list bs-docs-sidenav">
   	            <li><a href="/math"><i class="icon-chevron-right"></i>Mathematics</a></li>
@@ -77,7 +78,7 @@
   	  </div>
         
 		
-	  <div class="span7 offset2">Use the sidebar to the left to search for unsolved problems.</div>
+	  <!-- div class="span7 offset2">Use the sidebar to the left to search for unsolved problems.</div -->
 		
       <div class="span5 actions">
         <div class="span8 offset2">
@@ -136,7 +137,7 @@
         <!-- For the FAQ, we introduce a little bit of JS, using the accordion. -->
         <!-- This brings in jquery.js and bootstrap.js as dependencies. -->
         <!-- http://twitter.github.io/bootstrap/javascript.html#collapse -->
-        <div class="span4 offset2 row-fluid faq">
+        <div class="span5 offset2 row-fluid faq">
             <div class="span10 offset1">
               <h3>FAQ</h3>
               <div class="accordion" id="accordion2">
