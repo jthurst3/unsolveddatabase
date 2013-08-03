@@ -25,18 +25,17 @@
 	
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
 	<link href="/css/bootstrap-responsive.css" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/startup-no-icons.css">
+    <link rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap-combined.no-icons.min.css">
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css">
-    <link rel="stylesheet" href="/assets/css/social-buttons.css">
-    <script src="/assets/js/startup-code-jquery.js"></script>
-    <script src="/assets/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fsocial-buttons.css">
+    <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fjquery.js"></script>
+    <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap.js"></script>
 	<script src="/assets/js/faq.js"></script>
 	<script src="/assets/js/jquery.js"></script>
 	
 	<link href="/assets/css/mainStyle.css" rel="stylesheet" >
 	<link href="/assets/css/github.css" rel="stylesheet" >
-	<!-- from Google Font API -->
-	<link href="/assets/css/ubuntuFont.css" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type="text/css">
   </head>
   <body>
 	  <!-- navigation pane -->
@@ -54,7 +53,6 @@
 	  				  <li class="active"><a href="#">Homepage</a></li>
 	  				  <li><a href="/about">About</a></li>
 	  				  <li><a href="/contact">Contact</a></li>
-					  <li><a href="/faq">FAQ</a></li>
 	  			  </ul>
 	  		  </div>
 	  	  </div>
@@ -65,7 +63,7 @@
 	          <div class="github-fork-ribbon">
 	              <a href="https://class.coursera.org/startup-001/class/index">Made for the Coursera<br /><span class="smalltext">Stanford Startup Engineering Course</span></a>
 	          </div>
-	  </div>
+	      </div>
 	  <div class="row">
 		  <div class="span3">
 			  <a href="/"><img src="/assets/img/logo.svg" style="max-width:50%; display:block; margin-left:auto; margin-right:auto;"/></a>
@@ -149,6 +147,70 @@
 			  <!-- AddThis Button END -->
         </div>
       </div>
+		
+        <!-- For the FAQ, we introduce a little bit of JS, using the accordion. -->
+        <!-- This brings in jquery.js and bootstrap.js as dependencies. -->
+        <!-- http://twitter.github.io/bootstrap/javascript.html#collapse -->
+        <div class="span5 offset2 row-fluid faq">
+            <div class="span10 offset1">
+              <h3>FAQ</h3>
+              <div class="accordion" id="accordion2">
+				  <div class="faq"></div>
+                <div class="accordion-group">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse"
+                       data-parent="#accordion2" href="#collapseOne">
+                      What is the Unsolved Problems Database?
+                    </a>
+                  </div>
+                  <div id="collapseOne" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                      The Unsolved Problems Database is a website dedicated to explaining unsolved problems in academics to anyone wishing to learn more about them.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse"
+                       data-parent="#accordion2" href="#collapseTwo">
+                      What are unsolved problems?
+                    </a>
+                  </div>
+                  <div id="collapseTwo" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                      An "unsolved problem" is any problem that people don't know the answer to.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse"
+                       data-parent="#accordion2" href="#collapseThree">
+                      What types of unsolved problems are on this website?
+                    </a>
+                  </div>
+                  <div id="collapseThree" class="accordion-body collapse">
+                    <div class="accordion-inner">
+						Unsolved problems in math, the natural sciences, engineering, economics, psychology, or any other academic field can be posted on this website.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse"
+                       data-parent="#accordion2" href="#collapseFour">
+					   Why didn't you include [this unsolved problem] on the website?
+                    </a>
+                  </div>
+                  <div id="collapseFour" class="accordion-body collapse">
+                    <div class="accordion-inner">
+						Any user of this website can contribute an unsolved problem, as well as edit the descriptions of unsolved problems on the website. Thus, if you want [this unsolved problem] to be included in our database, sign up for free and contribute!
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+		</div>
 	</div>
 
         <!-- Not crucial, but we put this under a CC By-SA 3.0 license. -->
