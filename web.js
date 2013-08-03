@@ -11,6 +11,7 @@ app.use("/assets", express.static(__dirname + "/assets"));
 var index = "index.html";
 var about = "about.html";
 var contact = "contact.html";
+var faq = "faq.html";
 var header = "header.htm";
 var collatz = "problem/collatz.html";
 
@@ -50,8 +51,8 @@ app.get('/math', function(request, response) {
 	response.send(buffer.toString());
 });
 
-app.get('/style', function(request, response) {
-	var buffer = new Buffer(style);
+app.get('/faq', function(request, response) {
+	var buffer = new Buffer(fs.readFileSync(faq));
 	response.send(buffer.toString());
 });
 
