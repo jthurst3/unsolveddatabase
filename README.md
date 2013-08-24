@@ -1,5 +1,5 @@
-node-js-sample
+The Unsolved Problems Database
 ==============
 J. Hassler Thurston
 Startup Engineering Coursera
-Working on Assignment 3 to create the basis of a crowdfunding website
+Through Assignment 7
