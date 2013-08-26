@@ -12,10 +12,6 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.set('port', process.env.PORT || 8080);
 
-// inspired by http://stackoverflow.com/questions/12134554/node-js-external-js-and-css-fiels-just-using-node-js-not-express
-//var app = express.createServer(express.logger());
-//var port = process.env.PORT || 8080;
-
 // technique from https://github.com/sjuvekar/3Dthon/blob/master/web.js
 app.use("/assets", express.static(__dirname + "/assets"));
 
@@ -34,7 +30,7 @@ var math = "math.html";
 
 // Render homepage (note trailing slash): example.com/
 app.get('/', function(request, response) {
-  var data = fs.readFileSync(index).toString();
+  var data = fs.readFileSync('index.html').toString();
   response.send(data);
 });
 
@@ -164,8 +160,3 @@ var addOrder = function(order_obj, callback) {
     });
   }
 };
-
-/*app.get('/', function(request, response) {
-  var buffer = new Buffer(fs.readFileSync(index));
-  response.send(buffer.toString());
-});*/

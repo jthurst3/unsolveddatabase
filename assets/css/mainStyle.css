@@ -42,6 +42,11 @@ p {
   font-size: 18px;
   line-height: 24px;
 }
+
+.navbar-inner {
+	/*background:transparent;*/
+}
+
 /* video pitch and action */
 .pitch {
   padding: 2.5% 0%;
