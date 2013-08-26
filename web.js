@@ -25,12 +25,12 @@ var contact = "contact.html";
 var faq = "faq.html";
 var header = "header.htm";
 var collatz = "problem/collatz.html";
+var navbar = "navbar.html";
 
 var style = "assets/css/mainStyle.css";
 var github = "assets/css/github.css";
 
 var math = "math.html";
-
 
 // Render homepage (note trailing slash): example.com/
 app.get('/', function(request, response) {
@@ -55,6 +55,11 @@ app.get('/header', function(request, response) {
 
 app.get('/problem/collatz', function(request, response) {
     var data = fs.readFileSync(collatz).toString();
+    response.send(data);
+});
+
+app.get('/navbar', function(request, response) {
+    var data = fs.readFileSync(navbar).toString();
     response.send(data);
 });
 
