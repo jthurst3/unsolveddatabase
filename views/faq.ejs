@@ -1,0 +1,83 @@
+<!DOCTYPE>
+<!-- created mostly with reference to https://spark-public.s3.amazonaws.com/startup/images/part1-instructions.pdf-->
+<html lang="en">
+<head>
+  <title>FAQ | The Unsolved Problems Database</title>
+  
+  <% include headers %>
+</head>
+<body>
+  <!-- navigation pane -->
+  <% include navbar %>
+  <% include ribbon %>
+  
+  <!-- For the FAQ, we introduce a little bit of JS, using the accordion. -->
+  <!-- This brings in jquery.js and bootstrap.js as dependencies. -->
+  <!-- http://twitter.github.io/bootstrap/javascript.html#collapse -->
+  <div class="row-fluid faq">
+      <div class="span10 offset1">
+        <h3>FAQ</h3>
+        <div class="accordion" id="accordion2">
+		  <div class="faq"></div>
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse"
+                 data-parent="#accordion2" href="#collapseOne">
+                What is the Unsolved Problems Database?
+              </a>
+            </div>
+            <div id="collapseOne" class="accordion-body collapse">
+              <div class="accordion-inner">
+                The Unsolved Problems Database is a website dedicated to explaining unsolved problems in academics to anyone wishing to learn more about them.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse"
+                 data-parent="#accordion2" href="#collapseTwo">
+                What are unsolved problems?
+              </a>
+            </div>
+            <div id="collapseTwo" class="accordion-body collapse">
+              <div class="accordion-inner">
+                An "unsolved problem" is any problem that people don't know the answer to.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse"
+                 data-parent="#accordion2" href="#collapseThree">
+                What types of unsolved problems are on this website?
+              </a>
+            </div>
+            <div id="collapseThree" class="accordion-body collapse">
+              <div class="accordion-inner">
+				Unsolved problems in math, the natural sciences, engineering, economics, psychology, or any other academic field can be posted on this website.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse"
+                 data-parent="#accordion2" href="#collapseFour">
+			   Why didn't you include [this unsolved problem] on the website?
+              </a>
+            </div>
+            <div id="collapseFour" class="accordion-body collapse">
+              <div class="accordion-inner">
+				Any user of this website can contribute an unsolved problem, as well as edit the descriptions of unsolved problems on the website. Thus, if you want [this unsolved problem] to be included in our database, sign up for free and contribute!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  
+  <script src="/assets/js/startup-code-jquery.js"></script>
+  <script src="/assets/js/bootstrap.js"></script>
+	<script src="/assets/js/faq.js"></script>
+	<script src="/assets/js/jquery.js"></script>
+</body>
+</html>
