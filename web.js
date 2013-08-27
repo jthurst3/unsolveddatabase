@@ -42,9 +42,9 @@ passport.use(new FacebookStrategy({
     callbackURL: "/"
   },
   function(accessToken, refreshToken, profile, done) {
-	  // fix, from https://github.com/sjuvekar/3Dthon/blob/master/web.js
-	  var user = profile;
-	  return done(null, user);
+	  User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+	        return done(err, user);
+	      });
   }
 ));
 
@@ -53,6 +53,7 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
     successRedirect: '/', 
     failureRedirect: '/' 
 }));
+									  
 
 var index = "index.html";
 var about = "about.html";
