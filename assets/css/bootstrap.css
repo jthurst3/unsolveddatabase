@@ -4413,9 +4413,9 @@ input[type="submit"].btn.btn-mini {
 
 .navbar .brand {
   display: block;
-  float: left;
+  float: left; /* edited from right to left 8/27/13 */
   padding: 10px 20px 10px;
-  margin-left: -20px;
+  margin-left: -20px; /* edited from margin-right to margin-left 8/27/13 */
   font-size: 20px;
   font-weight: 200;
   color: #777777;

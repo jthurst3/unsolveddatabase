@@ -1,19 +1,58 @@
 // Define routes for simple SSJS web app. 
 // Writes Coinbase orders to database.
+// Facebook login strategy followed mostly verbatim from PassportJS's guide to Facebook login: http://passportjs.org/guide/facebook/
 var async   = require('async')
   , express = require('express')
   , fs      = require('fs')
   , http    = require('http')
   , https   = require('https')
-  , db      = require('./models');
+  , db      = require('./models')
+  , passport = require('passport')
+  , FacebookStrategy = require('passport-facebook').Strategy
+  , flash = require('connect-flash');
 
 var app = express();
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+app.set("view options", {layout: false}); // from http://stackoverflow.com/questions/13765315/opening-html-file-using-express-js
 app.set('port', process.env.PORT || 8080);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.cookieParser());
+app.use(express.bodyParser());
+app.use(flash());
 
 // technique from https://github.com/sjuvekar/3Dthon/blob/master/web.js
 app.use("/assets", express.static(__dirname + "/assets"));
+
+var FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID;
+var FACEBOOK_APP_SECRET = process.env.FACEBOOK_APP_SECRET;
+
+// Passport js sessions
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+passport.deserializeUser(function(id, done) {
+    done(null, id);
+});
+
+passport.use(new FacebookStrategy({
+    clientID: FACEBOOK_APP_ID,
+    clientSecret: FACEBOOK_APP_SECRET,
+    callbackURL: "/"
+  },
+  function(accessToken, refreshToken, profile, done) {
+	  // fix, from https://github.com/sjuvekar/3Dthon/blob/master/web.js
+	  var user = profile;
+	  return done(null, user);
+  }
+));
+
+app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook/callback', passport.authenticate('facebook', { 
+    successRedirect: '/', 
+    failureRedirect: '/' 
+}));
 
 var index = "index.html";
 var about = "about.html";
@@ -30,8 +69,21 @@ var math = "math.html";
 
 // Render homepage (note trailing slash): example.com/
 app.get('/', function(request, response) {
-  var data = fs.readFileSync('index.html').toString();
-  response.send(data);
+	// get info on crowdfunding process. Modified from https://github.com/sjuvekar/3Dthon/blob/master/web.js
+	global.db.Order.findAll().success(function(orders) {
+		var numBackers = orders.length;
+		var totalBitcoins = 0;
+		orders.forEach(function(order) {
+			totalBitcoins += order.amount;
+		});
+		var percentFunded = totalBitcoins / 4 * 100;
+		response.render("index", {backers: numBackers, bitcoins: totalBitcoins.toFixed(4), percent: percentFunded});
+	}).error(function(err) {
+		console.log(err);
+		response.render(index);
+	});
+  //var data = fs.readFileSync(index).toString();
+  //response.send(data);
 });
 
 app.get('/about', function(request, response) {
@@ -160,3 +212,8 @@ var addOrder = function(order_obj, callback) {
     });
   }
 };
+
+/*app.get('/', function(request, response) {
+  var buffer = new Buffer(fs.readFileSync(index));
+  response.send(buffer.toString());
+});*/
