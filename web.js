@@ -96,8 +96,7 @@ app.get('/contact', function(request, response) {
 });
 
 app.get('/problem/collatz', function(request, response) {
-    var data = fs.readFileSync(collatz).toString();
-    response.send(data);
+    response.render("problem/collatz");
 });
 
 app.get('/math', function(request, response) {
