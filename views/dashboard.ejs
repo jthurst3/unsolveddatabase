@@ -1,0 +1,43 @@
+<!DOCTYPE>
+<html lang="en">
+<head>
+	<!-- Facebook JavaScript SDK -->
+	<% include FacebookJavascriptSDK %>
+	
+    <title>Dashboard | <fb:name uid="loggedinuser" /></title>
+	
+	<% include headers %>
+</head>
+<body>
+  <div id="fb-root"></div>
+  
+  <!-- navigation pane -->
+  <% include navbar %>
+  
+  <!-- idea copied from pitery.herokuapp.com -->
+  <% include ribbon %>
+  
+  <div class="row-fluid">
+	  <div class="span3">
+		  <fb:name uid="loggedinuser" />
+		  <br>
+		  Edits History
+		  <br>
+		  Forum Contributions
+		  <br>
+		  Profile
+		  <br>
+		  Settings
+		  <br>
+		  Terms
+		  <br>
+		  Logout
+	  </div>
+	  <div class="span9">
+		  <h3>Placeholder</h3>
+	  </div>
+  </div>
+  
+  <% include scripts %>
+</body>
+</html>

@@ -108,6 +108,10 @@ app.get('/faq', function(request, response) {
     response.render("faq");
 });
 
+app.get('/dashboard', function(request, response) {
+	response.render("dashboard");
+})
+
 // Render example.com/orders
 app.get('/orders', function(request, response) {
   global.db.Order.findAll().success(function(orders) {
