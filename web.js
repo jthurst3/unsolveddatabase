@@ -64,8 +64,6 @@ var collatz = "problem/collatz.html";
 var style = "assets/css/mainStyle.css";
 var github = "assets/css/github.css";
 
-var math = "math.html";
-
 // var headers = fs.readFileSync("headers.html").toString();
 
 // Render homepage (note trailing slash): example.com/
@@ -99,18 +97,33 @@ app.get('/problem/collatz', function(request, response) {
     response.render("problem/collatz");
 });
 
-app.get('/math', function(request, response) {
-    var data = fs.readFileSync(math).toString();
-    response.send(data);
-});
-
 app.get('/faq', function(request, response) {
     response.render("faq");
 });
 
 app.get('/dashboard', function(request, response) {
 	response.render("dashboard");
-})
+});
+
+
+app.get('/math', function(request, response) {
+    response.render("math");
+});
+app.get('/physics', function(request, response) {
+    response.render("physics");
+});
+app.get('/compsci', function(request, response) {
+    response.render("compsci");
+});
+app.get('/history', function(request, response) {
+    response.render("history");
+});
+app.get('/economics', function(request, response) {
+    response.render("economics");
+});
+app.get('/psychology', function(request, response) {
+    response.render("psychology");
+});
 
 // Render example.com/orders
 app.get('/orders', function(request, response) {
