@@ -76,7 +76,7 @@ app.get('/', function(request, response) {
 			totalBitcoins += order.amount;
 		});
 		var percentFunded = totalBitcoins / 4 * 100;
-		response.render("index", {backers: numBackers, bitcoins: totalBitcoins.toFixed(4), percent: percentFunded});
+		response.render("index", {backers: numBackers, bitcoins: totalBitcoins.toFixed(4), percent: percentFunded, navid:1});
 	}).error(function(err) {
 		console.log(err);
 		response.render(index);
@@ -86,11 +86,11 @@ app.get('/', function(request, response) {
 });
 
 app.get('/about', function(request, response) {
-    response.render("about");
+    response.render("about", {navid:2});
 });
 
 app.get('/contact', function(request, response) {
-    response.render("contact");
+    response.render("contact", {navid:3});
 });
 
 app.get('/problem/collatz', function(request, response) {
@@ -98,11 +98,11 @@ app.get('/problem/collatz', function(request, response) {
 });
 
 app.get('/faq', function(request, response) {
-    response.render("faq");
+    response.render("faq", {navid:4});
 });
 
 app.get('/dashboard', function(request, response) {
-	response.render("dashboard");
+	response.render("dashboard", {navid:5});
 });
 
 
