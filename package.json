@@ -7,14 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-	  "connect-flash": "~0.1.1",
-	  "passport": "~0.1.17",
-	  "passport-facebook": "~1.0.0",
-      "sequelize": "~2.0.0-alpha2",
-      "pg": "~2.3.1",
-      "ejs": "~0.8.4",
-      "express": "~3.3.4",
-      "async": "~0.2.9"
+    "connect-flash": "~0.1.1",
+    "passport": "~0.1.17",
+    "passport-facebook": "~1.0.0",
+    "sequelize": "~2.0.0-alpha2",
+    "pg": "~2.3.1",
+    "ejs": "~0.8.4",
+    "express": "~3.3.4",
+    "async": "~0.2.9",
+    "passport-twitter": "~1.0.0",
+    "passport-google": "~0.3.0"
   },
   "engines": {
     "node": "0.10.12",

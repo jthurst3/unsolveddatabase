@@ -1,6 +1,8 @@
 // Define routes for simple SSJS web app. 
 // Writes Coinbase orders to database.
-// Facebook login strategy followed mostly verbatim from PassportJS's guide to Facebook login: http://passportjs.org/guide/facebook/
+// Login strategies followed mostly verbatim from PassportJS's guides: http://passportjs.org/
+
+// IMPORT STATEMENTS
 var async   = require('async')
   , express = require('express')
   , fs      = require('fs')
@@ -9,8 +11,12 @@ var async   = require('async')
   , db      = require('./models')
   , passport = require('passport')
   , FacebookStrategy = require('passport-facebook').Strategy
+  , TwitterStrategy = require('passport-twitter').Strategy
+  , GoogleStrategy = require('passport-google').Strategy
   , flash = require('connect-flash');
 
+  
+// SET UP THE APP
 var app = express();
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -20,21 +26,28 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.cookieParser());
 app.use(express.bodyParser());
+app.use(express.session({secret:'secretkey'}));
 app.use(flash());
+app.use("/assets", express.static(__dirname + "/assets")); // technique from https://github.com/sjuvekar/3Dthon/blob/master/web.js
 
-// technique from https://github.com/sjuvekar/3Dthon/blob/master/web.js
-app.use("/assets", express.static(__dirname + "/assets"));
-
+// APPLICATION ID'S AND SECRETS
 var FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID;
 var FACEBOOK_APP_SECRET = process.env.FACEBOOK_APP_SECRET;
+var TWITTER_CONSUMER_KEY = process.env.TWITTER_CONSUMER_KEY;
+var TWITTER_CONSUMER_SECRET = process.env.TWITTER_CONSUMER_SECRET;
 
 // Passport js sessions
 passport.serializeUser(function(user, done) {
-    done(null, user);
+    done(null, user.id);
 });
 passport.deserializeUser(function(id, done) {
-    done(null, id);
+	User.findById(id, function(err, user) {
+	    done(err, user);
+	  });
 });
+
+// login strategies
+var loginProvider, name, userID;
 
 passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
@@ -42,17 +55,64 @@ passport.use(new FacebookStrategy({
     callbackURL: "/"
   },
   function(accessToken, refreshToken, profile, done) {
-	  User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+	  User.findOrCreate({ 
+		  userID: profile.id,
+		  loginProvider: profile.provider,
+		  name: profile.displayName
+	  }, function (err, user) {
 	        return done(err, user);
 	      });
+  }
+));
+
+passport.use(new TwitterStrategy({
+    consumerKey: TWITTER_CONSUMER_KEY,
+    consumerSecret: TWITTER_CONSUMER_SECRET,
+    callbackURL: "/"
+  },
+  function(token, tokenSecret, profile, done) {
+    User.findOrCreate({
+	  userID: profile.id,
+	  loginProvider: profile.provider,
+	  name: profile.displayName
+    }, function(err, user) {
+      return done(err, user);
+    });
+  }
+));
+
+passport.use(new GoogleStrategy({
+    returnURL: 'http://unsolveddatabase.org/',
+    realm: 'http://unsolveddatabase.org/'
+  },
+  function(identifier, profile, done) {
+    User.findOrCreate({ 
+		openId: identifier,
+		userID: profile.id,
+		loginProvider: profile.provider,
+		name: profile.displayName
+	}, function(err, user) {
+      done(err, user);
+    });
   }
 ));
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { 
     successRedirect: '/', 
-    failureRedirect: '/' 
-}));
+    failureRedirect: '/' }));
+app.get('/auth/twitter', passport.authenticate('twitter'));
+app.get('/auth/twitter/callback', passport.authenticate('twitter', { 
+	successRedirect: '/',
+    failureRedirect: '/' }));
+app.get('/auth/google', passport.authenticate('google'));
+app.get('/auth/google/return', passport.authenticate('google', { 
+	successRedirect: '/',
+    failureRedirect: '/' }));
+app.get('/logout', function(req, res){
+	  req.logout();
+	  res.redirect('/');
+	});
 									  
 
 var index = "index.html";
@@ -76,7 +136,13 @@ app.get('/', function(request, response) {
 			totalBitcoins += order.amount;
 		});
 		var percentFunded = totalBitcoins / 4 * 100;
-		response.render("index", {backers: numBackers, bitcoins: totalBitcoins.toFixed(4), percent: percentFunded, navid:1});
+		response.render("index", {
+			backers: numBackers, 
+			bitcoins: totalBitcoins.toFixed(4), 
+			percent: percentFunded, 
+			navid:1, 
+			name: request.user
+		});
 	}).error(function(err) {
 		console.log(err);
 		response.render(index);
@@ -124,6 +190,7 @@ app.get('/economics', function(request, response) {
 app.get('/psychology', function(request, response) {
     response.render("psychology");
 });
+
 
 // Render example.com/orders
 app.get('/orders', function(request, response) {
