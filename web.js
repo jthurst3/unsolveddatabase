@@ -1,6 +1,6 @@
 // Define routes for simple SSJS web app. 
 // Writes Coinbase orders to database.
-// Login strategies followed mostly verbatim from PassportJS's guides: http://passportjs.org/
+// Login strategies and mongoose initialization inspired by Sudeep Juvekar's repository: https://github.com/sjuvekar/3Dthon
 
 // IMPORT STATEMENTS
 var async   = require('async')
@@ -10,10 +10,12 @@ var async   = require('async')
   , https   = require('https')
   , db      = require('./models')
   , passport = require('passport')
-  , FacebookStrategy = require('passport-facebook').Strategy
-  , TwitterStrategy = require('passport-twitter').Strategy
-  , GoogleStrategy = require('passport-google').Strategy
-  , flash = require('connect-flash');
+  , facebookAuth = require("./auth/facebook")
+  , twitterAuth = require("./auth/twitter")
+  , googleAuth = require("./auth/google")
+  , flash = require('connect-flash')
+  , mongooseDB = require('./models/mongooseDB')
+  , User = require('./models/user');
 
   
 // SET UP THE APP
@@ -30,11 +32,8 @@ app.use(express.session({secret:'secretkey'}));
 app.use(flash());
 app.use("/assets", express.static(__dirname + "/assets")); // technique from https://github.com/sjuvekar/3Dthon/blob/master/web.js
 
-// APPLICATION ID'S AND SECRETS
-var FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID;
-var FACEBOOK_APP_SECRET = process.env.FACEBOOK_APP_SECRET;
-var TWITTER_CONSUMER_KEY = process.env.TWITTER_CONSUMER_KEY;
-var TWITTER_CONSUMER_SECRET = process.env.TWITTER_CONSUMER_SECRET;
+// Initialize mongoose DB
+mongooseDB.mongooseInit();
 
 // Passport js sessions
 passport.serializeUser(function(user, done) {
@@ -46,73 +45,19 @@ passport.deserializeUser(function(id, done) {
 	  });
 });
 
-// login strategies
-var loginProvider, name, userID;
+// Facebook login and callbacks
+app.get('/auth/facebook', facebookAuth.facebookAuth());
+app.get('/auth/facebook/callback', facebookAuth.facebookAuthWithCallback());
 
-passport.use(new FacebookStrategy({
-    clientID: FACEBOOK_APP_ID,
-    clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: "/"
-  },
-  function(accessToken, refreshToken, profile, done) {
-	  User.findOrCreate({ 
-		  userID: profile.id,
-		  loginProvider: profile.provider,
-		  name: profile.displayName
-	  }, function (err, user) {
-	        return done(err, user);
-	      });
-  }
-));
+// Twitter login and callbacks
+app.get('/auth/twitter', twitterAuth.twitterAuth());
+app.get('/auth/twitter/callback', twitterAuth.twitterAuthWithCallback());
 
-passport.use(new TwitterStrategy({
-    consumerKey: TWITTER_CONSUMER_KEY,
-    consumerSecret: TWITTER_CONSUMER_SECRET,
-    callbackURL: "/"
-  },
-  function(token, tokenSecret, profile, done) {
-    User.findOrCreate({
-	  userID: profile.id,
-	  loginProvider: profile.provider,
-	  name: profile.displayName
-    }, function(err, user) {
-      return done(err, user);
-    });
-  }
-));
+// Google login and callbacks
+app.get('/auth/google', googleAuth.googleAuth());
+app.get('/auth/google/callback', googleAuth.googleAuthWithCallback());
+	
 
-passport.use(new GoogleStrategy({
-    returnURL: 'http://unsolveddatabase.org/',
-    realm: 'http://unsolveddatabase.org/'
-  },
-  function(identifier, profile, done) {
-    User.findOrCreate({ 
-		openId: identifier,
-		userID: profile.id,
-		loginProvider: profile.provider,
-		name: profile.displayName
-	}, function(err, user) {
-      done(err, user);
-    });
-  }
-));
-
-app.get('/auth/facebook', passport.authenticate('facebook'));
-app.get('/auth/facebook/callback', passport.authenticate('facebook', { 
-    successRedirect: '/', 
-    failureRedirect: '/' }));
-app.get('/auth/twitter', passport.authenticate('twitter'));
-app.get('/auth/twitter/callback', passport.authenticate('twitter', { 
-	successRedirect: '/',
-    failureRedirect: '/' }));
-app.get('/auth/google', passport.authenticate('google'));
-app.get('/auth/google/return', passport.authenticate('google', { 
-	successRedirect: '/',
-    failureRedirect: '/' }));
-app.get('/logout', function(req, res){
-	  req.logout();
-	  res.redirect('/');
-	});
 									  
 
 var index = "index.html";
@@ -128,6 +73,7 @@ var github = "assets/css/github.css";
 
 // Render homepage (note trailing slash): example.com/
 app.get('/', function(request, response) {
+	//console.log(request);
 	// get info on crowdfunding process. Modified from https://github.com/sjuvekar/3Dthon/blob/master/web.js
 	global.db.Order.findAll().success(function(orders) {
 		var numBackers = orders.length;
