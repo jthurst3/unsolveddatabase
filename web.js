@@ -114,18 +114,30 @@ app.get('/faq', function(request, response) {
 });
 
 app.get('/signup', function(request, response) {
-    response.render("signup");
+	if(request.user) {
+		response.render("dashboard", {
+			navid:5,
+			user: request.user,
+			alert: true,
+			alertType: "alert-warn",
+			alertText: "You are already logged in."
+		});
+	}
+	else {
+		response.render("signup");
+	}
 });
 
 app.get('/dashboard', function(request, response) {
 	// from https://github.com/sjuvekar/3Dthon/blob/master/route/index.js on 6 September 2013
 	if(!request.user) {
-		response.redirect("signup");
+		response.render("signup");
 	}
 	else {
 		response.render("dashboard", {
 			navid:5, 
-			user: request.user
+			user: request.user,
+			alert: false
 		});
 	}
 });
