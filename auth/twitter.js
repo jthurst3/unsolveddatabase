@@ -24,10 +24,12 @@ passport.use(new TwitterStrategy({
   }
 ));
 
-module.exports.twitterAuth = function() { return passport.authenticate("twitter"); };
+module.exports.twitterAuth = function() { 
+	return passport.authenticate("twitter"); 
+};
 module.exports.twitterAuthWithCallback = function() { 
     return passport.authenticate("twitter", { 
 	successReturnToOrRedirect: "/dashboard", 
-	failureRedirect: "/" 
+	failureRedirect: "/signup" 
     });
 };  

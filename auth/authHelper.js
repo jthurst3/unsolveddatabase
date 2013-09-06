@@ -45,9 +45,6 @@ module.exports.createSocialUser = function(profile, strategy, done) {
 	imageurl = profile._json.picture;
     else if (profile.photos && profile.photos[0])
 	imageurl = profile.photos[0].value;
-    
-    console.log(profile);
-	console.log(profile_id);
 
     User.findOne({email: profile_id}, function(err, result) {
 	if(!err && result) {
@@ -55,12 +52,10 @@ module.exports.createSocialUser = function(profile, strategy, done) {
 	    return done(null, result);
 	}
 	else {
-		console.log("herebefore");
 	    var new_user = new User({email: profile_id,
 				     password: profile_password,
 				     name: profile_name,
 				     imageurl: imageurl });
-		console.log("here");
 	    new_user.save(function(err) {
 		if(err) {
 		    console.log("Error saving user " + profile_id + " to database");

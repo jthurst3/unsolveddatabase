@@ -31,6 +31,6 @@ module.exports.googleAuth = function() { return passport.authenticate("google");
 module.exports.googleAuthWithCallback = function() { 
     return passport.authenticate("google", { 
 	successReturnToOrRedirect: "/dashboard", 
-	failureRedirect: "/" 
+	failureRedirect: "/signup" 
     });
 };

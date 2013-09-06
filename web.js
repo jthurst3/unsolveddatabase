@@ -1,6 +1,7 @@
 // Define routes for simple SSJS web app. 
 // Writes Coinbase orders to database.
 // Login strategies and mongoose initialization inspired by Sudeep Juvekar's repository: https://github.com/sjuvekar/3Dthon
+// Persistent sessions inspired by http://stackoverflow.com/questions/7990890/how-to-implement-login-auth-in-node-js
 
 // IMPORT STATEMENTS
 var async   = require('async')
@@ -24,11 +25,11 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.set("view options", {layout: false}); // from http://stackoverflow.com/questions/13765315/opening-html-file-using-express-js
 app.set('port', process.env.PORT || 8080);
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(express.cookieParser());
 app.use(express.bodyParser());
 app.use(express.session({secret:'secretkey'}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash());
 app.use("/assets", express.static(__dirname + "/assets")); // technique from https://github.com/sjuvekar/3Dthon/blob/master/web.js
 
@@ -86,8 +87,7 @@ app.get('/', function(request, response) {
 			backers: numBackers, 
 			bitcoins: totalBitcoins.toFixed(4), 
 			percent: percentFunded, 
-			navid:1, 
-			name: request.user
+			navid:1
 		});
 	}).error(function(err) {
 		console.log(err);
@@ -113,8 +113,21 @@ app.get('/faq', function(request, response) {
     response.render("faq", {navid:4});
 });
 
+app.get('/signup', function(request, response) {
+    response.render("signup");
+});
+
 app.get('/dashboard', function(request, response) {
-	response.render("dashboard", {navid:5});
+	// from https://github.com/sjuvekar/3Dthon/blob/master/route/index.js on 6 September 2013
+	if(!request.user) {
+		response.redirect("signup");
+	}
+	else {
+		response.render("dashboard", {
+			navid:5, 
+			user: request.user
+		});
+	}
 });
 
 

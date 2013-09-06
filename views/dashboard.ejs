@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	
-    <title>Dashboard | <fb:name uid="loggedinuser" /></title>
+    <title>Dashboard | <%= user.name %></title>
 	
 	<% include headers %>
 </head>
@@ -20,7 +20,7 @@
   
   <div class="row-fluid">
 	  <div class="span3">
-		  <fb:name uid="loggedinuser" />
+		  <%= user.name %>
 		  <br>
 		  Edits History
 		  <br>

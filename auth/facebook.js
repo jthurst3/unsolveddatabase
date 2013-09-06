@@ -29,6 +29,6 @@ module.exports.facebookAuth = function() { return passport.authenticate("faceboo
 module.exports.facebookAuthWithCallback = function() { 
     return passport.authenticate("facebook", { 
 	successReturnToOrRedirect: '/dashboard', 
-	failureRedirect: '/' 
+	failureRedirect: '/signup' 
     });
 };  
