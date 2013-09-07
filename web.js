@@ -16,7 +16,8 @@ var async   = require('async')
   , googleAuth = require("./auth/google")
   , flash = require('connect-flash')
   , mongooseDB = require('./models/mongooseDB')
-  , User = require('./models/user');
+  , User = require('./models/user')
+  , Problem = require('./models/problem');
 
   
 // SET UP THE APP
@@ -106,7 +107,11 @@ app.get('/contact', function(request, response) {
 });
 
 app.get('/problem/collatz', function(request, response) {
-    response.render("problem/collatz");
+	var problem = Problem.findOne({id:"collatz"}, function(err, result) {
+		console.log(result);
+		console.log(result.name);
+		response.render("problem/collatz", {problem: result});
+	});
 });
 
 app.get('/faq', function(request, response) {
@@ -134,6 +139,8 @@ app.get('/dashboard', function(request, response) {
 		response.render("signup");
 	}
 	else {
+		console.log(request.user);
+		console.log(request.user.name);
 		response.render("dashboard", {
 			navid:5, 
 			user: request.user,
