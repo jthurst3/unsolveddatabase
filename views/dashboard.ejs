@@ -18,25 +18,51 @@
   <!-- idea copied from pitery.herokuapp.com -->
   <% include ribbon %>
   
+  <!-- image from http://pixabay.com/static/uploads/photo/2012/12/25/06/11/ball-72374_640.jpg -->
+  <!-- style="background-image:url('/assets/img/ball-72374_640.jpg');" -->
+  <header class="jumbotron">
+    	<div class="row-fluid">
+    	  <div class="span9 offset3">
+    		  <div class="row-fluid heading">
+    			  <h2><%= user.name %></h2>
+    		  </div>
+	  		  <div class="row-fluid subheading">
+	  			  <p class="lead"></p>
+	  		  </div>
+    	  </div>
+    	</div>
+  </header>
+  
   <div class="row-fluid">
-	  <div class="span3">
-		  <%= user.name %>
-		  <br>
-		  Edits History
-		  <br>
-		  Forum Contributions
-		  <br>
-		  Profile
-		  <br>
-		  Settings
-		  <br>
-		  Terms
-		  <br>
-		  Logout
+	  <!-- modified from http://bootsnipp.com/snipps/admin-sidebar-menu -->
+	  <div class="span3 sidebar-nav">
+	  	<div class="well" style="width:300px; padding: 8px 0; text-align:center;">
+	  		<ul class="nav nav-list"> 
+	  		  <li class="nav-header"> Navigation Pane</li>  
+			  <li class="divider"></li>      
+			  <li><a href="#sandbox"> Sandbox</a></li>
+	  		  <li><a href="#edits"> Edits History</a></li>
+			  <li><a href="#contributions"> Forum Contributions</a></li>
+			  <li class="divider"></li>
+	  		  <li><a href="/logout"> Logout</a></li>
+	  		</ul>
+	  	</div>
 	  </div>
-	  <div class="span8">
+	  <div class="span9">
 		  <% include alert %>
-		  <h3>Placeholder</h3>
+		  <section id="sandbox">
+			  <h3>Sandbox</h3>
+			  <hr>
+			  <textarea rows="10" cols="300" class="span9">This is an area to practice editing site content.</textarea>
+		  </section>
+		  <section id="edits">
+			  <h3>Edits History</h3>
+			  <hr>
+		  </section>
+		  <section id="contributions">
+			  <h3>Forum Contributions</h3>
+			  <hr>
+		  </section>
 	  </div>
   </div>
   

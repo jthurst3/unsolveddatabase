@@ -60,16 +60,6 @@ app.get('/auth/google', googleAuth.googleAuth());
 app.get('/auth/google/callback', googleAuth.googleAuthWithCallback());
 	
 
-									  
-
-var index = "index.html";
-var about = "about.html";
-var contact = "contact.html";
-var faq = "faq.html";
-var collatz = "problem/collatz.html";
-
-var style = "assets/css/mainStyle.css";
-var github = "assets/css/github.css";
 
 // var headers = fs.readFileSync("headers.html").toString();
 
@@ -106,11 +96,9 @@ app.get('/contact', function(request, response) {
     response.render("contact", {navid:3});
 });
 
-app.get('/problem/collatz', function(request, response) {
-	var problem = Problem.findOne({id:"collatz"}, function(err, result) {
-		console.log(result);
-		console.log(result.name);
-		response.render("problem/collatz", {problem: result});
+app.get('/problem/:probName', function(request, response) {
+	var problem = Problem.findOne({id:request.params.probName}, function(err, result) {
+		response.render("problem/problem", {problem: result});
 	});
 });
 
@@ -133,14 +121,17 @@ app.get('/signup', function(request, response) {
 	}
 });
 
+app.get('/logout', function(request, response) {
+	request.logout();
+	response.redirect('/');
+})
+
 app.get('/dashboard', function(request, response) {
 	// from https://github.com/sjuvekar/3Dthon/blob/master/route/index.js on 6 September 2013
 	if(!request.user) {
-		response.render("signup");
+		response.redirect("signup");
 	}
 	else {
-		console.log(request.user);
-		console.log(request.user.name);
 		response.render("dashboard", {
 			navid:5, 
 			user: request.user,
