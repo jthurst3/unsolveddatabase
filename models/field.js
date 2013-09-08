@@ -6,7 +6,7 @@ var FieldSchema = mongoose.Schema({
 	type: String,
 	required: true,
     },
-    id: {
+    nid: {
 	type: String,
 	required: true,
     }

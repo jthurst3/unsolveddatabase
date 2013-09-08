@@ -61,8 +61,13 @@ app.get('/auth/google', googleAuth.googleAuth());
 app.get('/auth/google/callback', googleAuth.googleAuthWithCallback());
 	
 
+var render2 = function(destination, options, request, response) {
+	Field.find({}, function(err, fieldList) {
+		options.fields = fieldList;
+		response.render(destination, options);
+	});
+}
 
-// var headers = fs.readFileSync("headers.html").toString();
 
 // Render homepage (note trailing slash): example.com/
 app.get('/', function(request, response) {
@@ -75,12 +80,13 @@ app.get('/', function(request, response) {
 			totalBitcoins += order.amount;
 		});
 		var percentFunded = totalBitcoins / 4 * 100;
-		response.render("index", {
-			backers: numBackers, 
-			bitcoins: totalBitcoins.toFixed(4), 
-			percent: percentFunded, 
-			navid:1
-		});
+		render2("index", {
+				backers: numBackers, 
+				bitcoins: totalBitcoins.toFixed(4), 
+				percent: percentFunded, 
+				user: request.user,
+				navid:1
+		}, request, response);
 	}).error(function(err) {
 		console.log(err);
 		response.render(index);
@@ -90,45 +96,43 @@ app.get('/', function(request, response) {
 });
 
 app.get('/about', function(request, response) {
-    response.render("about", {navid:2});
+    render2("about", {navid:2}, request, response);
 });
 
 app.get('/contact', function(request, response) {
-    response.render("contact", {navid:3});
+    render2("contact", {navid:3}, request, response);
 });
 
 app.get('/problem/:probName', function(request, response) {
-	var problem = Problem.findOne({id:request.params.probName}, function(err, result) {
-		response.render("problem/problem", {problem: result});
+	var problem = Problem.findOne({nid:request.params.probName}, function(err, result) {
+		render2("problem/problem", {problem: result}, request, response);
 	});
 });
 
 app.get('/categories/:field', function(request, response) {
-	var category = Field.findOne({id:request.params.field}, function(err, result) {
-		console.log(result);
+	var category = Field.findOne({nid:request.params.field}, function(err, result) {
 		var problems = Problem.find({topic: result.name}, function(err, result2) {
-			console.log(result2);
-			response.render("categories/field", {field: result, problems: result2});
+			render2("categories/field", {field: result, problems: result2}, request, response);
 		});
 	});
 })
 
 app.get('/faq', function(request, response) {
-    response.render("faq", {navid:4});
+    render2("faq", {navid:4}, request, response);
 });
 
 app.get('/signup', function(request, response) {
 	if(request.user) {
-		response.render("dashboard", {
+		render2("dashboard", {
 			navid:5,
 			user: request.user,
 			alert: true,
 			alertType: "alert-warn",
 			alertText: "You are already logged in."
-		});
+		}, request, response);
 	}
 	else {
-		response.render("signup");
+		render2("signup", {}, request, response);
 	}
 });
 
@@ -143,32 +147,12 @@ app.get('/dashboard', function(request, response) {
 		response.redirect("signup");
 	}
 	else {
-		response.render("dashboard", {
+		render2("dashboard", {
 			navid:5, 
 			user: request.user,
 			alert: false
-		});
+		}, request, response);
 	}
-});
-
-
-app.get('/math', function(request, response) {
-    response.render("math");
-});
-app.get('/physics', function(request, response) {
-    response.render("physics");
-});
-app.get('/compsci', function(request, response) {
-    response.render("compsci");
-});
-app.get('/history', function(request, response) {
-    response.render("history");
-});
-app.get('/economics', function(request, response) {
-    response.render("economics");
-});
-app.get('/psychology', function(request, response) {
-    response.render("psychology");
 });
 
 

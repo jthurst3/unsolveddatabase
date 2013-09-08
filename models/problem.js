@@ -2,6 +2,10 @@ var mongoose = require("mongoose");
 
 // create a new problem
 var ProblemSchema = mongoose.Schema({
+    nid: {
+	type: String,
+	required: true,
+    },
     name: {
 	type: String,
 	required: true,

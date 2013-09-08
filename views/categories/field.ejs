@@ -28,6 +28,9 @@
 		  <section id="problems">
 			  <h3>Problems</h3>
 			  <hr>
+			  <% if(problems == null) { %>
+			  <p>No unsolved problems are listed in this field yet.</p>
+			  <% } else { %>
 				  <!-- modified from http://bootsnipp.com/snipps/groupable-table -->
 				  <table class="table table-striped table-condensed">
 				  						<thead>
@@ -37,16 +40,19 @@
 				  							</tr>
 				  						</thead>   
 				  						<tbody>
-				  							<tr>
-				  								<td>Collatz Conjecture</td>
-				  								<td>Number Theory</td>
-				  							</tr>
+											<% problems.forEach(function(prob){ %>
+												<tr>
+													<td><a href="/problem/<%= prob.nid %>"><%= prob.name %></a></td>
+													<td><%= prob.subtopic %></td>
+												</tr>
+											  <% }) %>
 				  						</tbody>
 				  </table>
+				  <% } %>
 		  </section>
-		  <p>No unsolved problems are listed in this field yet.</p>
 	  </div>
     </div>
+	<% include ../footer %>
 	  <% include ../scripts %>
   </body>
 </html>
