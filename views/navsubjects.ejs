@@ -1,10 +1,7 @@
   	  <div class="span3 bs-docs-sidebar">
   	          <ul class="nav nav-list bs-docs-sidenav">
-  	            <li><a href="/math"><i class="icon-chevron-right"></i>Mathematics</a></li>
-  	            <li><a href="/physics"><i class="icon-chevron-right"></i>Physics</a></li>
-  	            <li><a href="/compsci"><i class="icon-chevron-right"></i>Computer Science</a></li>
-  	            <li><a href="/history"><i class="icon-chevron-right"></i>History</a></li>
-  	            <li><a href="/economics"><i class="icon-chevron-right"></i>Economics</a></li>
-  	            <li><a href="/psychology"><i class="icon-chevron-right"></i>Psychology</a></li>
+				  <% fields.forEach(function(fd) { %>
+					  <li><a href="/categories/<%= fd.nid %>"><i class="icon-chevron-right"></i><%= fd.name %></a></li>
+				  <% })%>
   	          </ul>
   	  </div>
