@@ -17,7 +17,8 @@ var async   = require('async')
   , flash = require('connect-flash')
   , mongooseDB = require('./models/mongooseDB')
   , User = require('./models/user')
-  , Problem = require('./models/problem');
+  , Problem = require('./models/problem')
+  , Field = require('./models/field');
 
   
 // SET UP THE APP
@@ -101,6 +102,16 @@ app.get('/problem/:probName', function(request, response) {
 		response.render("problem/problem", {problem: result});
 	});
 });
+
+app.get('/categories/:field', function(request, response) {
+	var category = Field.findOne({id:request.params.field}, function(err, result) {
+		console.log(result);
+		var problems = Problem.find({topic: result.name}, function(err, result2) {
+			console.log(result2);
+			response.render("categories/field", {field: result, problems: result2});
+		});
+	});
+})
 
 app.get('/faq', function(request, response) {
     response.render("faq", {navid:4});
