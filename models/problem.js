@@ -61,6 +61,10 @@ var ProblemSchema = mongoose.Schema({
     references: {
 	type: String,
 	required: true
+    },
+    edits: {
+	type: [mongoose.Schema.Types.ObjectId],
+	required: true,
     }
 });
 

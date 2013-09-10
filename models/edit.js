@@ -19,7 +19,7 @@ var EditSchema = mongoose.Schema({
 	required: true,
     },
     changes: {
-	type: [mongoose.Schema.types.ObjectId],
+	type: [mongoose.Schema.Types.ObjectId],
 	required: true,
     },
 });
