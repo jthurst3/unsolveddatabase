@@ -18,7 +18,9 @@ var async   = require('async')
   , mongooseDB = require('./models/mongooseDB')
   , User = require('./models/user')
   , Problem = require('./models/problem')
-  , Field = require('./models/field');
+  , Field = require('./models/field')
+  , Section = require('./models/section')
+  , SingleEdit = require('./models/singleEdit');
 
   
 // SET UP THE APP
@@ -34,6 +36,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use("/assets", express.static(__dirname + "/assets")); // technique from https://github.com/sjuvekar/3Dthon/blob/master/web.js
+app.use("/models", express.static(__dirname + "/models"));
 
 // Initialize mongoose DB
 mongooseDB.mongooseInit();
@@ -115,6 +118,15 @@ app.get('/categories/:field', function(request, response) {
 			render2("categories/field", {field: result, problems: result2}, request, response);
 		});
 	});
+});
+
+app.get('/submitEdit/:probName/:section', function(request, response) {
+	Problem.findOne({nid:request.params.probName}, function(err, prob) {
+		Section.findOne({nid:request.params.section}, function(err, sect) {
+			SingleEdit.saveEdit(prob.nid, "hello", request, response);
+			response.redirect('/problem/' + prob.nid);
+		})
+	})
 })
 
 app.get('/faq', function(request, response) {

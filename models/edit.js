@@ -5,7 +5,7 @@ var EditSchema = mongoose.Schema({
 	user: {
 		type: String,
 		required: true
-	}
+	},
     problem: {
 	type: String,
 	required: true,

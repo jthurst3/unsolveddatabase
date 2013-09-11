@@ -4,6 +4,7 @@
     <title><%= problem.name %> | The Unsolved Problems Database</title>
 	<% include ../headers %>
 	
+	<script type="text/javascript" src="../../models/singleEdit.js"></script>
 </head>
 <body data-spy="scroll" data-target=".bs-docs-sidebar" data-offset-top="500">
   <% include ../navbar %>
@@ -41,9 +42,9 @@
 			  		    </p>
 			  		</div>
 			  		<div class="tab-pane fade" id="descriptionEdit">
-						<form name="descriptionInput" action="#">
-			  		    	<textarea rows="10" cols="300" class="span9"><%= problem.description %></textarea>
-							<button type="submit" class="btn btn-primary btn-large" onclick="descriptionSubmit()">Save</button>
+						<form name="descriptionInput" action="/submitEdit/collatz/description">
+			  		    	<textarea name="descriptionArea" rows="10" cols="300" class="span9"><%= problem.description %></textarea>
+							<button type="submit" class="btn">Save</button>
 						</form>
 			  		</div>
 			  	</div>
@@ -123,11 +124,6 @@
   </div>
   <% include ../footer %>
   
-  <script type="text/javascript">
-  function descriptionSubmit() {
-	  saveEdit(<%= problem.name %>, request, response);
-  }
-  </script>
   <% include ../scripts %>
 </body>
 </html>
