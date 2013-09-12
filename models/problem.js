@@ -1,4 +1,5 @@
-var mongoose = require("mongoose");
+var mongoose = require("mongoose"),
+	Edit = require('./edit');
 
 // create a new problem
 var ProblemSchema = mongoose.Schema({
@@ -63,7 +64,7 @@ var ProblemSchema = mongoose.Schema({
 	required: true
     },
     edits: {
-	type: [mongoose.Schema.Types.ObjectId],
+	type: [Edit],
 	required: true,
     }
 });

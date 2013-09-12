@@ -1,0 +1,26 @@
+
+	<section id="history">
+		<h3>History</h3>
+		<hr>
+		<!-- from http://getbootstrap.com/2.3.2/javascript.html#tabs -->
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#historyView" data-toggle="tab">View</a></li>
+			<li><a href="#historyEdit" data-toggle="tab">Edit</a></li>
+		</ul>
+		<div id="historyContent" class="tab-content">
+			<div class="tab-pane fade in active" id="historyView">
+			    <p>
+					<%= problem.history %>
+			    </p>
+			</div>
+			<div class="tab-pane fade" id="historyEdit">
+			<form name="historyInput" action="/submitEdit">
+				<input type="hidden" name="problemName" value="<%= problem.nid %>">
+				<input type="hidden" name="problemSection" value="history">
+				<input type="hidden" name="problemOldText" value="<%= problem.history %>">
+			    	<textarea name="problemNewText" rows="10" cols="300" class="span9"><%= problem.history %></textarea>
+				<button type="submit" class="btn">Save</button>
+			</form>
+			</div>
+		</div>
+	</section>

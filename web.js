@@ -108,7 +108,9 @@ app.get('/contact', function(request, response) {
 
 app.get('/problem/:probName', function(request, response) {
 	var problem = Problem.findOne({nid:request.params.probName}, function(err, result) {
-		render2("problem/problem", {problem: result}, request, response);
+		Section.find({}, function(error, sectionList) {
+			render2("problem/problem", {problem: result, alert: false, sections: sectionList}, request, response);
+		})
 	});
 });
 
@@ -120,13 +122,18 @@ app.get('/categories/:field', function(request, response) {
 	});
 });
 
-app.get('/submitEdit/:probName/:section', function(request, response) {
-	Problem.findOne({nid:request.params.probName}, function(err, prob) {
-		Section.findOne({nid:request.params.section}, function(err, sect) {
-			SingleEdit.saveEdit(prob.nid, "hello", request, response);
-			response.redirect('/problem/' + prob.nid);
-		})
-	})
+app.get('/submitEdit', function(request, response) {
+	var q = request.query;
+	if(!request.user) {
+		Problem.findOne({nid:q.problemName}, function(err, result) {
+			render2('problem/problem', {problem: result, alert: true, alertType: "alert-error",
+			alertText: "You must be logged in to edit site content."}, request, response);
+		});
+	}
+	else {
+		SingleEdit.saveEdit(request.user._id, q.problemName, q.problemSection, q.problemOldText, q.problemNewText);
+		response.redirect('/problem/' + q.problemName);
+	}
 })
 
 app.get('/faq', function(request, response) {

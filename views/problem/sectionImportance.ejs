@@ -1,0 +1,26 @@
+
+	<section id="importance">
+		<h3>Why It's Important</h3>
+		<hr>
+		<!-- from http://getbootstrap.com/2.3.2/javascript.html#tabs -->
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#importanceView" data-toggle="tab">View</a></li>
+			<li><a href="#importanceEdit" data-toggle="tab">Edit</a></li>
+		</ul>
+		<div id="importanceContent" class="tab-content">
+			<div class="tab-pane fade in active" id="importanceView">
+			    <p>
+					<%= problem.importance %>
+			    </p>
+			</div>
+			<div class="tab-pane fade" id="importanceEdit">
+			<form name="importanceInput" action="/submitEdit">
+				<input type="hidden" name="problemName" value="<%= problem.nid %>">
+				<input type="hidden" name="problemSection" value="importance">
+				<input type="hidden" name="problemOldText" value="<%= problem.importance %>">
+			    	<textarea name="problemNewText" rows="10" cols="300" class="span9"><%= problem.importance %></textarea>
+				<button type="submit" class="btn">Save</button>
+			</form>
+			</div>
+		</div>
+	</section>

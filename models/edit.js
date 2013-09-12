@@ -10,7 +10,7 @@ var EditSchema = mongoose.Schema({
 	type: String,
 	required: true,
     },
-    topic: {
+    section: {
 	type: String,
 	required: true,
     },
@@ -18,10 +18,14 @@ var EditSchema = mongoose.Schema({
 	type: Date,
 	required: true,
     },
-    changes: {
-	type: [mongoose.Schema.Types.ObjectId],
-	required: true,
-    },
+	oldText: {
+		type: String,
+		required: true
+	},
+	newText: {
+		type: String,
+		required: true
+	}
 });
 
 
