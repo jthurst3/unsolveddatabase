@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title><%= problem.name %></title>
+    <title><%= problem.name %> | The Unsolved Problems Database</title>
 	<% include ../headers %>
 	
+	<script type="text/javascript" src="../../models/singleEdit.js"></script>
 </head>
 <body data-spy="scroll" data-target=".bs-docs-sidebar" data-offset-top="500">
   <% include ../navbar %>
@@ -26,86 +27,23 @@
 	  <!-- from http://twitter.github.io/bootstrap/components.html -->
 		  <% include ../navlist %>
 		  <div class="span9">
-			  <section id="description">
-				  <h3>Description</h3>
-				  <hr>
-				  <p>
-					  <%= problem.description %>
-				  </p>
-			  </section>
-			  <section id="statement">
-				  <h3>Formal Statement</h3>
-				  <hr>
-				  <p>
-					  <%= problem.statement %>
-				  </p>
-			  </section>
-			  <section id="examples">
-				  <h3>Examples</h3>
-				  <hr>
-				  <p>
-					  <%= problem.examples %>
-				  </p>
-			  </section>
-			  <section id="importance">
-				  <h3>Why It's Important</h3>
-				  <hr>
-				  <p>
-					  <%= problem.importance %>
-				  </p>
-			  </section>
-			  <section id="hardness">
-				  <h3>Why It's Unsolved</h3>
-				  <hr>
-				  <p>
-					  <%= problem.hardness %>
-				  </p>
-			  </section>
-			  <section id="history">
-				  <h3>History</h3>
-				  <hr>
-				  <p>
-					  <%= problem.history %>
-				  </p>
-			  </section>
-			  <section id="solutions">
-				  <h3>Potential Solutions</h3>
-				  <hr>
-				  <p>
-					  <%= problem.solutions %>
-				  </p>
-			  </section>
-			  <section id="implications">
-				  <h3>Implications</h3>
-				  <hr>
-				  <p>
-					  <%= problem.implications %>
-				  </p>
-			  </section>
-			  <section id="faq">
-				  <h3>FAQ</h3>
-				  <hr>
-				  <p>
-					  <%= problem.faq %>
-				  </p>
-			  </section>
-			  <section id="forums">
-				  <h3>Forums</h3>
-				  <hr>
-				  <p>
-					  <%= problem.forums %>
-				  </p>
-			  </section>
-			  <section id="references">
-				  <h3>References</h3>
-				  <hr>
-				  <p>
-					  <%= problem.references %>
-				  </p>
-			  </section>
+			  <% include ../alert %>
+			  
+			  <% include sectionDescription %>
+			  <% include sectionStatement %>
+			  <% include sectionExamples %>
+			  <% include sectionImportance %>
+			  <% include sectionHardness %>
+			  <% include sectionHistory %>
+			  <% include sectionSolutions %>
+			  <% include sectionImplications %>
+			  <% include sectionFAQ %>
+			  <% include sectionForums %>
+			  <% include sectionReferences %>
 		  </div>
     </div>
   </div>
+  <% include ../footer %>
   
   <% include ../scripts %>
 </body>

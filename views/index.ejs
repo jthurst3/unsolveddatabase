@@ -77,31 +77,9 @@
 	    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
 	  </div>
 	  
-      <div class="bs-docs-social row-fluid" id="social" style="top:-100px">
-		  <!-- Facebook Login Button -->
-		  <div class="span3">
-			  <a href="/auth/facebook"><button class="btn btn-facebook btn-large"><i class="icon-facebook"></i> | Login with Facebook</button></a>
-		  </div>
-		  <div class="span3">
-			  <a href="/auth/twitter"><button class="btn btn-twitter btn-large"><i class="icon-twitter"></i> | Login with Twitter</button></a>
-		  </div>
-		  <div class="span3">
-			  <a href="/auth/google"><button class="btn btn-google-plus btn-large"><i class="icon-google-plus"></i> | Login with Google</button></a>
-		  </div>
-		<!-- AddThis Button BEGIN -->
-		<!-- copied from https://class.coursera.org/startup-001/assignment/view?assignment_id=12, which is 
-			modified from https://www.addthis.com/get/sharing#.Ufq8TmTwJRs -->
-		  <div class="span3 addthis_toolbox addthis_default_style addthis_32x32_style">
-		    <a class="addthis_button_preferred_1"></a>
-		    <a class="addthis_button_preferred_2"></a>
-		    <a class="addthis_button_compact"></a>
-		    <a class="addthis_counter addthis_bubble_style"></a>
-		  </div>
-		   <script type="text/javascript">var addthis_config = 
-		    {"data_track_addressbar":true};</script>
-			<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51fabc46527de406"></script>
-		  <!-- AddThis Button END -->
-      </div>
+	  <% if(user == null) { %>
+      <% include social %>
+	  <% } %>
 	  
 	  <hr class="soften">
 	  
@@ -185,16 +163,7 @@
 	  </div>
 	</div>
 
-        <!-- Not crucial, but we put this under a CC By-SA 3.0 license. -->
-        <!-- http://creativecommons.org/licenses/ -->
-     <div class="row-fluid footer">
-          <div class="span12">
-            <p>This work is licensed under
-              the <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
-                By-SA 3.0
-              </a> license.</p>
-          </div>
-        </div>
+		<% include footer %>
 		
 		<!-- modified from https://github.com/sjuvekar/3Dthon/blob/master/index.html on August 26, 2013 -->
 		<style>

@@ -1,7 +1,12 @@
-var mongoose = require("mongoose");
+var mongoose = require("mongoose"),
+	Edit = require('./edit');
 
 // create a new problem
 var ProblemSchema = mongoose.Schema({
+    nid: {
+	type: String,
+	required: true,
+    },
     name: {
 	type: String,
 	required: true,
@@ -57,6 +62,10 @@ var ProblemSchema = mongoose.Schema({
     references: {
 	type: String,
 	required: true
+    },
+    edits: {
+	type: [Edit],
+	required: true,
     }
 });
 
