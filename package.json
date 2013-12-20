@@ -17,7 +17,7 @@
     "async": "~0.2.9",
     "passport-twitter": "~1.0.0",
     "passport-google": "~0.3.0",
-    "mongoose": "~3.6.18",
+    "mongoose": "~3.6.20",
     "bcrypt": "~0.7.6",
     "passport-google-oauth": "~0.1.5"
   },
