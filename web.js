@@ -80,7 +80,7 @@ var render2 = function(destination, options, request, response) {
 app.get('/', function(request, response) {
 	//console.log(request);
 	// get info on crowdfunding process. Modified from https://github.com/sjuvekar/3Dthon/blob/master/web.js
-	global.db.Order.findAll().success(function(orders) {
+	/*global.db.Order.findAll().success(function(orders) {
 		var numBackers = orders.length;
 		var totalBitcoins = 0;
 		orders.forEach(function(order) {
@@ -97,7 +97,14 @@ app.get('/', function(request, response) {
 	}).error(function(err) {
 		console.log(err);
 		response.render(index);
-	});
+	});*/
+    render2("index", {
+        backers: 0, 
+        bitcoins: 0, 
+        percent: 50, 
+        user: request.user,
+        navid:1
+    }, request, response);
   //var data = fs.readFileSync(index).toString();
   //response.send(data);
 });
@@ -180,7 +187,7 @@ app.get('/dashboard', function(request, response) {
 
 
 // Render example.com/orders
-app.get('/orders', function(request, response) {
+/*app.get('/orders', function(request, response) {
   global.db.Order.findAll().success(function(orders) {
     var orders_json = [];
     orders.forEach(function(order) {
@@ -192,10 +199,10 @@ app.get('/orders', function(request, response) {
     console.log(err);
     response.send("error retrieving orders");
   });
-});
+});*/
 
 // Hit this URL while on example.com/orders to refresh
-app.get('/refresh_orders', function(request, response) {
+/*app.get('/refresh_orders', function(request, response) {
   https.get("https://coinbase.com/api/v1/orders?api_key=" + process.env.COINBASE_API_KEY, function(res) {
     var body = '';
     res.on('data', function(chunk) {body += chunk;});
@@ -228,10 +235,10 @@ app.get('/refresh_orders', function(request, response) {
     });
   });
 
-});
+});*/
 
 // sync the database and start the server
-db.sequelize.sync().complete(function(err) {
+/*db.sequelize.sync().complete(function(err) {
   if (err) {
     throw err;
   } else {
@@ -239,10 +246,10 @@ db.sequelize.sync().complete(function(err) {
       console.log("Listening on " + app.get('port'));
     });
   }
-});
+});*/
 
 // add order to the database if it doesn't already exist
-var addOrder = function(order_obj, callback) {
+/*var addOrder = function(order_obj, callback) {
   var order = order_obj.order; // order json from coinbase
   if (order.status != "completed") {
     // only add completed orders
@@ -269,7 +276,12 @@ var addOrder = function(order_obj, callback) {
       }
     });
   }
-};
+};*/
+
+// start the server
+http.createServer(app).listen(app.get('port'), function() {
+      console.log("Listening on " + app.get('port'));
+    });
 
 /*app.get('/', function(request, response) {
   var buffer = new Buffer(fs.readFileSync(index));
