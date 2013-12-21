@@ -19,7 +19,8 @@
     "passport-google": "~0.3.0",
     "mongoose": "~3.6.20",
     "bcrypt": "~0.7.6",
-    "passport-google-oauth": "~0.1.5"
+    "passport-google-oauth": "~0.1.5",
+    "node-env-file": "~0.1.0"
   },
   "engines": {
     "node": "0.10.12",
