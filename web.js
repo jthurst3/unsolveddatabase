@@ -98,12 +98,35 @@ app.get('/', function(request, response) {
 		console.log(err);
 		response.render(index);
 	});*/
+    var caption1 = {
+      pic: '/assets/img/soap-bubble-63982_1280.jpg',
+      url: '/',
+      color: 'gold',
+      text: 'The Unsolved Problems Database',
+      subtext: 'Learn about the world\'s greatest mysteries.'
+    };
+    var caption2 = {
+      pic: '/assets/img/soap-bubble-63982_1280.jpg',
+      url: '/',
+      color: 'gold',
+      text: 'The Unsolved Problems Database',
+      subtext: 'Learn about the world\'s greatest mysteries.'
+    };
+    var caption3 = {
+      pic: '/assets/img/soap-bubble-63982_1280.jpg',
+      url: '/',
+      color: 'gold',
+      text: 'The Unsolved Problems Database',
+      subtext: 'Learn about the world\'s greatest mysteries.'
+    };
     render2("index", {
-        backers: 0, 
-        bitcoins: 0, 
-        percent: 50, 
+        navid: 1,
         user: request.user,
-        navid:1
+        carouselItems: [
+          caption1,
+          caption2,
+          caption3
+        ]
     }, request, response);
   //var data = fs.readFileSync(index).toString();
   //response.send(data);
@@ -111,6 +134,10 @@ app.get('/', function(request, response) {
 
 app.get('/about', function(request, response) {
     render2("about", {navid:2}, request, response);
+});
+
+app.get('/test', function(request, response) {
+    render2("test", {navid:2}, request, response);
 });
 
 app.get('/contact', function(request, response) {

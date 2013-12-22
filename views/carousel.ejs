@@ -1,15 +1,20 @@
 <!-- from http://getbootstrap.com/2.3.2/javascript.html#carousel -->
-	  <div id="myCarousel" class="container carousel slide">
-	    <ol class="carousel-indicators">
-	      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-	      <li data-target="#myCarousel" data-slide-to="1"></li>
-		  <li data-target="#myCarousel" data-slide-to="2"></li>
-	    </ol>
+	  <div id="myCarousel" class="container carousel slide" data-ride="carousel">
 	    <!-- Carousel items -->
 		<!-- layout of each carousel item formatted similar to https://github.com/sjuvekar/3Dthon/blob/master/index.html -->
 	    <div class="carousel-inner">
+	    	<% for(var i = 0; i < carouselItems.length; i++) { %>
+	    	<div class="item <% if(i==0) { %>active<%}%>" style="background-image: url(<%= carouselItems[i].pic %>)">
+  				<a href="<%= carouselItems[i].url %>"><div class="container">
+  			    	<div class="carousel-caption">
+  			     	 	<h1 style="color: <%= carouselItems[i].color %>"><%= carouselItems[i].text %></h1>
+  			     	 	<p class="lead"><%= carouselItems[i].subtext %></p>
+  					</div>
+  				</div></a>
+  			</div>
+	    	<% } %>
 		  <!-- background image from http://pixabay.com/get/b6ef82918ff4c35ef247/1377550737/soap-bubble-63982_1280.jpg -->
-	      <div class="active item" style="background-image: url('/assets/img/soap-bubble-63982_1280.jpg')">
+	      <!-- <div class="active item" style="background-image: url('/assets/img/soap-bubble-63982_1280.jpg')">
 			<a href="/"><div class="container">
 			    <div class="carousel-caption">
 			      	<h1 style="color: gold">The Unsolved Problems Database</h1>
@@ -21,7 +26,7 @@
   			<a href="/problem/collatz"><div class="container">
   			    <div class="carousel-caption">
   			      	<h1 style="color: red">Collatz Conjecture</h1>
-  			      	<p class="lead">Mathematics -- Number Theory</p>
+  			      	<p class="lead">Mathematics - - Number Theory</p>
   				</div>
   			</div></a>
 	      </div>
@@ -33,7 +38,7 @@
 					<a class="btn btn-large" href="#funding">Donate</a>
   				</div>
   			</div>
-	      </div>
+	      </div> -->
 	    </div>
 	    <!-- Carousel nav -->
 	    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
