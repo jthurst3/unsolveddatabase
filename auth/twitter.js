@@ -33,3 +33,10 @@ module.exports.twitterAuthWithCallback = function() {
 	failureRedirect: "/signup" 
     });
 };  
+module.exports.twitterAuthWithCallbackTest = function() { 
+  console.log("hello");
+    return passport.authenticate("twitter", { 
+  successReturnToOrRedirect: "/problem/collatzTest", 
+  failureRedirect: "/signup" 
+    });
+};  

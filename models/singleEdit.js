@@ -16,14 +16,23 @@ module.exports.saveEdit = function(user2, prob2, section2, oldText2, newText2) {
 	});
 	newEdit.save(function(err) {
 		if(!err) {
-			Problem.findOne({nid : prob2}, function(error, theProblem) {
+			console.log(user2 + '\n' + prob2 + '\n' + section2 + '\n' + oldText2 + '\n' + newText2);
+			Problem.findOne({nid: prob2, "content.sectionId":section2}, function(error, result) {
+				console.log(result);
+				console.log(result.nid);
+				console.log(result.name);
+				console.log(result.content.$.sectionText);
+			});
+			Problem.update({nid: prob2, "content.sectionId":section2}, {$set: {"content.$.sectionText": newText2}});
+			/*Problem.findOne({nid : prob2}, function(error, theProblem) {
 				if(!error) {
+
 					updateSection(theProblem, section2, newText2);
 				}
 				else {
 					console.log(error);
 				}
-			});
+			});*/
 		}
 		else {
 			console.log(err);

@@ -1,3 +1,4 @@
 Persistent login functionality
 Editing content
 Sort sections by sectionNumber
+Redirect user back to page they were on after login

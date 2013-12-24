@@ -137,7 +137,17 @@ app.get('/about', function(request, response) {
 });
 
 app.get('/test', function(request, response) {
-    render2("test", {navid:2, user: request.user}, request, response);
+    response.redirect('/auth/twitter/callbackTest');
+});
+app.get('/auth/twitter/callbackTest', function(request, response) {
+  console.log("hi");
+  twitterAuth.twitterAuthWithCallbackTest();
+});
+app.get('/problem/collatzTest', function(request, response) {
+    var oldText = "The Collatz Conjecture (3n+1 conjecture) asks whether you always reach 1 when performing the following over and over for any starting number n:\r\n    \"If n is odd, multiply it by 3 and add 1. If n is even, divide it by 2.\"";
+    var newText = "New text.";
+    SingleEdit.saveEdit(request.user._id, 'collatz', 'description', oldText, newText);
+    response.redirect('/problem/collatz');
 });
 
 app.get('/contact', function(request, response) {
