@@ -34,9 +34,7 @@
 	  
 	  <% include carousel %>
 	  
-	  <% if(user == null) { %>
       <% include social %>
-	  <% } %>
 	  
 	  <hr class="soften">
 	  
@@ -62,17 +60,31 @@
 		  </div>
 		  <hr class="soften">
 	  </div>
-	  
-    <div class="row-fluid">
 	  <div class="row-fluid">
-		  <div class="span9 offset3">
-		  	<!-- Facebook like button -->
-		  	<div class="fb-like" data-href="https://www.facebook.com/unsolveddatabase" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-		  	<!-- Facebook login button -->
-	  		<fb:login-button data-show-faces="true" data-width="200" data-max-rows="2"></fb:login-button>
- 	 	  </div>
+	  	<div class="span6 offset3">
+	  	<section id="sources">
+	  		<div class="accordion-group">
+	              <div class="accordion-heading">
+	                <a class="accordion-toggle" data-toggle="collapse"
+	                   data-parent="#accordion2" href="#collapseOne">
+	                  Sources for this Page
+	                </a>
+	              </div>
+	              <div id="collapseOne" class="accordion-body collapse">
+	                <div class="accordion-inner">
+	                  <ul>
+	                  	<li>Carousel background image 1: <a href="http://pixabay.com/en/soap-bubble-ball-question-mark-63982/">Pixabay</a></li>
+	                  	<li>Carousel background image 2: <a href="https://commons.wikimedia.org/wiki/File:Collatz-stopping-time.svg">Wikimedia Commons, by Cirne (self-made, based on plot by Goldencako) [Public domain]</a></li>
+	                  	<li>Carousel background image 3: <a href="http://pixabay.com/en/ball-puzzle-pieces-of-the-puzzle-72374/">Pixabay</a></li>
+	                  	<li>Puzzle pieces: <a href="http://pixabay.com/en/puzzle-complete-part-share-fit-63626/">Pixabay</a></li>
+	                  	<li>Graph: <a href="http://commons.wikimedia.org/wiki/File%3AErd%C5%91s%E2%80%93Faber%E2%80%93Lov%C3%A1sz_conjecture.svg">Wikimedia Commons, by David Eppstein (Own work) [Public domain]</a></li>
+	                  </ul>
+	                </div>
+	              </div>
+	            </div>
+	  	</section>
+	    </div>
 	  </div>
-	</div>
 
 		<% include footer %>
 		

@@ -106,18 +106,18 @@ app.get('/', function(request, response) {
       subtext: 'Learn about the world\'s greatest mysteries.'
     };
     var caption2 = {
-      pic: '/assets/img/soap-bubble-63982_1280.jpg',
-      url: '/',
-      color: 'gold',
-      text: 'The Unsolved Problems Database',
-      subtext: 'Learn about the world\'s greatest mysteries.'
+      pic: '/assets/img/logo.svg',
+      url: '/problem/collatz',
+      color: 'red',
+      text: 'Collatz Conjecture',
+      subtext: 'Mathematics -- Number Theory'
     };
     var caption3 = {
-      pic: '/assets/img/soap-bubble-63982_1280.jpg',
-      url: '/',
-      color: 'gold',
-      text: 'The Unsolved Problems Database',
-      subtext: 'Learn about the world\'s greatest mysteries.'
+      pic: '/assets/img/ball-72374_640.jpg',
+      url: '/problem/beal',
+      color: 'white',
+      text: 'Beal\'s Conjecture',
+      subtext: 'Mathematics -- Number Theory'
     };
     render2("index", {
         navid: 1,
@@ -146,7 +146,6 @@ app.get('/contact', function(request, response) {
 
 app.get('/problem/:probName', function(request, response) {
 	var problem = Problem.findOne({nid:request.params.probName}, function(err, result) {
-    console.log(result.content[0]);
     render2("problem/problem", {problem: result, alert: false, user: request.user}, request, response);
 		/*Section.find({}, function(error, sectionList) {
       var sectionContent = result.content;
@@ -213,6 +212,10 @@ app.get('/dashboard', function(request, response) {
 			alert: false
 		}, request, response);
 	}
+});
+
+app.get('/acknowledgements', function(request, response) {
+  render2("acknowledgements", {user:request.user}, request, response);
 });
 
 
