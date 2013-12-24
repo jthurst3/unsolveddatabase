@@ -1,2 +1,2 @@
-Center text on navbar
-Fix arrows on carousel
+Persistent login functionality
+Editing content

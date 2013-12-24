@@ -133,21 +133,22 @@ app.get('/', function(request, response) {
 });
 
 app.get('/about', function(request, response) {
-    render2("about", {navid:2}, request, response);
+    render2("about", {navid:2, user: request.user}, request, response);
 });
 
 app.get('/test', function(request, response) {
-    render2("test", {navid:2}, request, response);
+    render2("test", {navid:2, user: request.user}, request, response);
 });
 
 app.get('/contact', function(request, response) {
-    render2("contact", {navid:3}, request, response);
+    render2("contact", {navid:3, user: request.user}, request, response);
 });
 
 app.get('/problem/:probName', function(request, response) {
 	var problem = Problem.findOne({nid:request.params.probName}, function(err, result) {
 		Section.find({}, function(error, sectionList) {
-			render2("problem/problem", {problem: result, alert: false, sections: sectionList}, request, response);
+      console.log(sectionList);
+			render2("problem/problem", {problem: result, alert: false, sections: sectionList, user: request.user}, request, response);
 		})
 	});
 });
@@ -155,7 +156,7 @@ app.get('/problem/:probName', function(request, response) {
 app.get('/categories/:field', function(request, response) {
 	var category = Field.findOne({nid:request.params.field}, function(err, result) {
 		var problems = Problem.find({topic: result.name}, function(err, result2) {
-			render2("categories/field", {field: result, problems: result2}, request, response);
+			render2("categories/field", {field: result, problems: result2, user: request.user}, request, response);
 		});
 	});
 });
@@ -165,7 +166,7 @@ app.get('/submitEdit', function(request, response) {
 	if(!request.user) {
 		Problem.findOne({nid:q.problemName}, function(err, result) {
 			render2('problem/problem', {problem: result, alert: true, alertType: "alert-error",
-			alertText: "You must be logged in to edit site content."}, request, response);
+			alertText: "You must be logged in to edit site content.", user: request.user}, request, response);
 		});
 	}
 	else {
@@ -175,7 +176,7 @@ app.get('/submitEdit', function(request, response) {
 })
 
 app.get('/faq', function(request, response) {
-    render2("faq", {navid:4}, request, response);
+    render2("faq", {navid:4, user: request.user}, request, response);
 });
 
 app.get('/signup', function(request, response) {

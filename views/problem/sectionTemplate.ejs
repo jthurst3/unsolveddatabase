@@ -1,0 +1,26 @@
+
+	<section id="<%= section.name %>">
+		<h3><%= section.name %></h3>
+		<hr>
+		<!-- from http://getbootstrap.com/2.3.2/javascript.html#tabs -->
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#<%= section.name %>View" data-toggle="tab">View</a></li>
+			<li><a href="#<%= section.name %>Edit" data-toggle="tab">Edit</a></li>
+		</ul>
+		<div id="<%= section.name %>Content" class="tab-content">
+			<div class="tab-pane fade in active" id="<%= section.name %>View">
+			    <p>
+					<%= problem.<%= section.name %> %>
+			    </p>
+			</div>
+			<div class="tab-pane fade" id="<%= section.name %>Edit">
+			<form name="<%= section.name %>Input" action="/submitEdit">
+				<input type="hidden" name="problemName" value="<%= problem.nid %>">
+				<input type="hidden" name="problemSection" value="<%= section.name %>">
+				<input type="hidden" name="problemOldText" value="<%= problem.description %>">
+			    	<textarea name="problemNewText" rows="10" cols="300" class="span9"><%= problem.description %></textarea>
+				<button type="submit" class="btn">Save</button>
+			</form>
+			</div>
+		</div>
+	</section>

@@ -6,9 +6,6 @@
     <title>The Unsolved Problems Database</title>
 	
 	<% include headers %>
-	<style>
-	body { padding-top: 70px; }
-	</style>
 	
 	<script type="text/javascript">
 
@@ -69,10 +66,10 @@
     <div class="row-fluid">
 	  <div class="row-fluid">
 		  <div class="span9 offset3">
-	  <!-- Facebook like button -->
-	  <div class="fb-like" data-href="http://unsolveddatabase.org" data-width="450" data-show-faces="true" data-send="false"></div>
-	  <!-- Facebook login button -->
-	  <fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
+		  	<!-- Facebook like button -->
+		  	<div class="fb-like" data-href="https://www.facebook.com/unsolveddatabase" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+		  	<!-- Facebook login button -->
+	  		<fb:login-button data-show-faces="true" data-width="200" data-max-rows="2"></fb:login-button>
  	 	  </div>
 	  </div>
 	</div>
@@ -92,10 +89,8 @@
 		      }
       
 		      .carousel-control {
-		        height: 80px;
-		        margin-top: 0;
-		        font-size: 120px;
-		        text-shadow: 0 1px 1px rgba(1,0,0,.4);
+		        margin-top: 50px;
+		        /*text-shadow: 0 1px 1px rgba(1,0,0,.4);*/
 		        background-color: transparent;
 		        border: 0;
 		        z-index: 10;
@@ -133,6 +128,16 @@
 		</style>
 		
 		<% include scripts %>
+
+		<!-- Facebook like button -->
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=157569387774298";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
 		
 		<!-- Google Analytics -->
 		<script>
