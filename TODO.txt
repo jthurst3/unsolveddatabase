@@ -1,0 +1,2 @@
+Center text on navbar
+Fix arrows on carousel
