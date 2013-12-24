@@ -25,23 +25,13 @@
   <div class="container">
 	<div class="row">
 	  <!-- from http://twitter.github.io/bootstrap/components.html -->
-		  <% include ../navlist %>
+		  <% include navlist %>
 		  <div class="span9 offset3">
 			  <% include ../alert %>
 			  
-			  
-
-			  <% include sectionDescription %>
-			  <% include sectionStatement %>
-			  <% include sectionExamples %>
-			  <% include sectionImportance %>
-			  <% include sectionHardness %>
-			  <% include sectionHistory %>
-			  <% include sectionSolutions %>
-			  <% include sectionImplications %>
-			  <% include sectionFAQ %>
-			  <% include sectionForums %>
-			  <% include sectionReferences %>
+			  <% for(var i = 0; i < problem.content.length; i++) { %>
+			  	<% include sectionTemplate %>
+			  <% } %>
 		  </div>
     </div>
   </div>

@@ -146,10 +146,12 @@ app.get('/contact', function(request, response) {
 
 app.get('/problem/:probName', function(request, response) {
 	var problem = Problem.findOne({nid:request.params.probName}, function(err, result) {
-		Section.find({}, function(error, sectionList) {
-      console.log(sectionList);
+    console.log(result.content[0]);
+    render2("problem/problem", {problem: result, alert: false, user: request.user}, request, response);
+		/*Section.find({}, function(error, sectionList) {
+      var sectionContent = result.content;
 			render2("problem/problem", {problem: result, alert: false, sections: sectionList, user: request.user}, request, response);
-		})
+		})*/
 	});
 });
 
