@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 
-// create a new problem
+// create a new field
 var FieldSchema = mongoose.Schema({
     name: {
 	type: String,

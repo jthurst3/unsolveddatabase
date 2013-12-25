@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 
-// create a new problem
+// create a new section
 var SectionSchema = mongoose.Schema({
     name: {
 	type: String,

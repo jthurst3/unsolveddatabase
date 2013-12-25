@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 
-// create a new problem
+// create a new contribution
+// not ready for production
 var ContributionSchema = mongoose.Schema({
 	user: {
 		type: String,
