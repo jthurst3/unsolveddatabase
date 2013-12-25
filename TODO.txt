@@ -1,4 +1,4 @@
 Persistent login functionality (already implemented, just not when server refreshes)
 Sort sections by sectionNumber
 Redirect user back to page they were on after login
-add sandbox to user schema
+404

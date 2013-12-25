@@ -168,7 +168,6 @@ app.get('/categories/:field', function(request, response) {
 
 app.get('/submitEdit', function(request, response) {
 	var q = request.query;
-  console.log(q);
 	if(!request.user) {
 		Problem.findOne({nid:q.problemName}, function(err, result) {
 			render2('problem/problem', {problem: result, alert: true, alertType: "alert-error",
@@ -179,6 +178,24 @@ app.get('/submitEdit', function(request, response) {
 		SingleEdit.saveEdit(request.user._id, q.problemName, q.problemSection, q.problemOldText, q.problemNewText);
 		response.redirect('/problem/' + q.problemName);
 	}
+});
+
+app.get('/sandboxEdit', function(request, response) {
+  var q = request.query;
+  if(!request.user) {
+    response.redirect("/");
+  } else {
+    // update user sandbox
+    User.update({_id: request.user}, {$set: {"sandbox":q.sandboxNewText}}, function(err, result) {
+      if(err) {
+        console.log(err);
+        response.redirect('/dashboard');
+      }
+      else {
+        response.redirect('/dashboard');
+      }
+    });
+  }
 })
 
 app.get('/faq', function(request, response) {
@@ -326,6 +343,10 @@ app.get('/acknowledgements', function(request, response) {
     });
   }
 };*/
+
+app.get('*', function(request, response) {
+  render2('notFound', {user: request.user}, request, response);
+})
 
 // start the server
 http.createServer(app).listen(app.get('port'), function() {

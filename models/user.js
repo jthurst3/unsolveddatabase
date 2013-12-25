@@ -24,6 +24,10 @@ var UserSchema = mongoose.Schema({
 	},
 	contributions: {
 		type: [mongoose.Schema.Types.ObjectId]
+	},
+	sandbox: {
+		type: String,
+		default: "This is an area to practice editing site content."
 	}
 });
 
