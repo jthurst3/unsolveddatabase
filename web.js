@@ -22,6 +22,7 @@ var async   = require('async')
   , mongooseDB = require('./models/mongooseDB')
   , User = require('./models/user')
   , Problem = require('./models/problem')
+  , Edit = require('./models/edit')
   , Field = require('./models/field')
   , Section = require('./models/section')
   , SingleEdit = require('./models/singleEdit');
@@ -190,7 +191,7 @@ app.get('/faq', function(request, response) {
     render2("faq", {navid:4, user: request.user}, request, response);
 });
 
-app.get('/signup', function(request, response) {
+/*app.get('/signup', function(request, response) {
 	if(request.user) {
 		render2("dashboard", {
 			navid:5,
@@ -203,7 +204,7 @@ app.get('/signup', function(request, response) {
 	else {
 		render2("signup", {}, request, response);
 	}
-});
+});*/
 
 app.get('/logout', function(request, response) {
 	request.logout();
@@ -213,12 +214,13 @@ app.get('/logout', function(request, response) {
 app.get('/dashboard', function(request, response) {
 	// from https://github.com/sjuvekar/3Dthon/blob/master/route/index.js on 6 September 2013
 	if(!request.user) {
-		response.redirect("signup");
+		response.redirect("/");
 	}
 	else {
 		render2("dashboard", {
 			navid:5, 
 			user: request.user,
+      edits: request.user.edits,
 			alert: false
 		}, request, response);
 	}

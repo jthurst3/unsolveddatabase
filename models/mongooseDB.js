@@ -16,14 +16,7 @@ module.exports.mongooseInit = function() {
 	if (err) { 
 	    console.log ('ERROR connecting to: ' + uristring + '. ' + err);
 	} else {
-	    console.log ('Succeeded connection too: ' + uristring);
-	    console.log("hello");
-	    var admin = new mongodb.Admin(mongoose.connection.db);
-	    console.log("hello there2");
-		  admin.buildInfo(function (err, info) {
-		     console.log(info.version);
-		  });
-		  console.log("hellothere");
+	    console.log ('Succeeded connection to: ' + uristring);
 	}
     });
 };

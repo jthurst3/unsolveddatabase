@@ -19,12 +19,10 @@ var EditSchema = mongoose.Schema({
 	required: true,
     },
 	oldText: {
-		type: String,
-		required: true
+		type: String
 	},
 	newText: {
-		type: String,
-		required: true
+		type: String
 	}
 });
 

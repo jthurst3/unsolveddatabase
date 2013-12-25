@@ -69,12 +69,12 @@
 				  							</tr>
 				  						</thead>   
 				  						<tbody>
-											<% user.edits.forEach(function(edit){ %>
+											<% edits.forEach(function(edit){ %>
 												<tr>
-													<td><a href="/problem/<%= edit.problem %>"><%= edit.problem.name %></a></td>
-													<td><%= edit.problem.topic %></td>
-													<td><%= edit.problem.date %></td>
-													<td><%= edit.problem.changes %></td>
+													<td><a href="/problem/<%= edit.problem %>"><%= edit.problem %></a></td>
+													<td><%= edit.section %></td>
+													<td><%= edit.date %></td>
+													<td><%= edit.changes %></td>
 												</tr>
 											  <% }) %>
 				  						</tbody>

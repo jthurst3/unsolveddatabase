@@ -29,14 +29,7 @@ module.exports.twitterAuth = function() {
 };
 module.exports.twitterAuthWithCallback = function() { 
     return passport.authenticate("twitter", { 
-	successReturnToOrRedirect: "/dashboard", 
+	successReturnToOrRedirect: "/problem/collatz", // change back to /dashboard
 	failureRedirect: "/signup" 
     });
-};  
-module.exports.twitterAuthWithCallbackTest = function() { 
-  console.log("hello");
-    return passport.authenticate("twitter", { 
-  successReturnToOrRedirect: "/problem/collatzTest", 
-  failureRedirect: "/signup" 
-    });
-};  
+};
