@@ -58,11 +58,7 @@ passport.deserializeUser(function(id, done) {
 
 // Facebook login and callbacks
 app.get('/auth/facebook', facebookAuth.facebookAuth());
-app.get('/auth/facebook/callback', function(request, response) {
-  var q = request.query;
-  console.log(q);
-  facebookAuth.facebookAuthWithCallback(q.redirect);
-});
+app.get('/auth/facebook/callback', facebookAuth.facebookAuthWithCallback());
 
 // Twitter login and callbacks
 app.get('/auth/twitter', twitterAuth.twitterAuth());
@@ -70,10 +66,7 @@ app.get('/auth/twitter/callback', twitterAuth.twitterAuthWithCallback());
 
 // Google login and callbacks
 app.get('/auth/google', googleAuth.googleAuth());
-app.get('/auth/google/callback', function(request, response) {
-  var q = request.query;
-  googleAuth.googleAuthWithCallback(q.redirect);
-});
+app.get('/auth/google/callback', googleAuth.googleAuthWithCallback());
 	
 
 var render2 = function(destination, options, request, response) {

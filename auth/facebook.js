@@ -26,9 +26,9 @@ passport.use(new FacebookStrategy({
 
 
 module.exports.facebookAuth = function() { return passport.authenticate("facebook"); };
-module.exports.facebookAuthWithCallback = function(redirect) { 
+module.exports.facebookAuthWithCallback = function() { 
     return passport.authenticate("facebook", { 
-	successReturnToOrRedirect: redirect, 
+	successReturnToOrRedirect: '/dashboard', 
 	failureRedirect: '/' 
     });
 };  
