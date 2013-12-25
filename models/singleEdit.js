@@ -21,17 +21,10 @@ module.exports.saveEdit = function(user2, prob2, section2, oldText2, newText2) {
 	});
 	newEdit.save(function(err, res) {
 		if(!err) {
-			console.log(user2 + '\n' + prob2 + '\n' + section2 + '\n' + oldText2 + '\n' + newText2);
-			console.log("here");
-			User.findOne({_id: user2}, function(error, result) {
-				console.log("this is the user:");
-				console.log(result.edits);
-			});
 			// update the problem
-			Problem.update({nid: prob2, "content.sectionId":section2},
-				{
+			Problem.update({nid: prob2, "content.sectionId":section2}, {
 					$set: {"content.$.sectionText": newText2},
-				}, function(error, result) {});
+			}, function(error, result) {});
 			// update the user
 			User.update({_id: user2}, {
 				$push: {"edits": res}

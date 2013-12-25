@@ -1,7 +1,7 @@
 Persistent login functionality (already implemented, just not when server refreshes)
 Sort sections by sectionNumber
 Redirect user back to page they were on after login
-Create new pages functionality
+Create new pages functionality, create new sections for pages (implement this new functionality)
 Have people submit "robots" that scour the web and add content to the site
 	GitHub request
 	proper citations

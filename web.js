@@ -25,7 +25,9 @@ var async   = require('async')
   , Edit = require('./models/edit')
   , Field = require('./models/field')
   , Section = require('./models/section')
-  , SingleEdit = require('./models/singleEdit');
+  , SingleEdit = require('./models/singleEdit')
+  , NewProblem = require('./models/newProblem')
+  , NewSection = require('./models/newSection');
 
   
 // SET UP THE APP
