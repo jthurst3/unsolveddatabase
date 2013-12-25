@@ -4,8 +4,8 @@
 // Persistent sessions inspired by http://stackoverflow.com/questions/7990890/how-to-implement-login-auth-in-node-js
 
 // use correct environment
-var env = require('node-env-file');
-env(__dirname + '/.env');
+/*var env = require('node-env-file');
+env(__dirname + '/.env');*/
 
 // IMPORT STATEMENTS
 var async   = require('async')
