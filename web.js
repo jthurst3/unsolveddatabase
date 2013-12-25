@@ -144,11 +144,14 @@ app.get('/contact', function(request, response) {
 app.get('/problem/:probName', function(request, response) {
 	var problem = Problem.findOne({nid:request.params.probName}, function(err, result) {
     if(!err) {
+      if(result == null) {
+        render2("notFound", {user: request.user}, request, response);
+      } else {
       render2("problem/problem", {problem: result, alert: false, user: request.user}, request, response);
+      }
     }
 		else {
       console.log(err);
-      render2("notFound", {user: request.user}, request, response);
     }
 	});
 });
@@ -156,12 +159,15 @@ app.get('/problem/:probName', function(request, response) {
 app.get('/categories/:field', function(request, response) {
 	var category = Field.findOne({nid:request.params.field}, function(err, result) {
     if(!err) {
+      if(result == null) {
+        render2("notFound", {user: request.user}, request, response);
+      } else {
       var problems = Problem.find({topic: result.name}, function(error, result2) {
         render2("categories/field", {field: result, problems: result2, user: request.user}, request, response);
       });
+      }
     } else {
       console.log(err);
-      render2("notFound", {user: request.user}, request, response);
     }
 	});
 });
