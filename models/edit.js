@@ -10,10 +10,18 @@ var EditSchema = mongoose.Schema({
 	type: String,
 	required: true,
     },
+    problemName: {
+    	type: String,
+    	required: true
+    },
     section: {
 	type: String,
 	required: true,
     },
+    /*sectionName: {
+    	type: String,
+    	required: true
+    },*/
     date: {
 	type: Date,
 	required: true,

@@ -58,7 +58,11 @@ passport.deserializeUser(function(id, done) {
 
 // Facebook login and callbacks
 app.get('/auth/facebook', facebookAuth.facebookAuth());
-app.get('/auth/facebook/callback', facebookAuth.facebookAuthWithCallback());
+app.get('/auth/facebook/callback', function(request, response) {
+  var q = request.query;
+  console.log(q);
+  facebookAuth.facebookAuthWithCallback(q.redirect);
+});
 
 // Twitter login and callbacks
 app.get('/auth/twitter', twitterAuth.twitterAuth());
@@ -66,7 +70,10 @@ app.get('/auth/twitter/callback', twitterAuth.twitterAuthWithCallback());
 
 // Google login and callbacks
 app.get('/auth/google', googleAuth.googleAuth());
-app.get('/auth/google/callback', googleAuth.googleAuthWithCallback());
+app.get('/auth/google/callback', function(request, response) {
+  var q = request.query;
+  googleAuth.googleAuthWithCallback(q.redirect);
+});
 	
 
 var render2 = function(destination, options, request, response) {
@@ -137,20 +144,6 @@ app.get('/about', function(request, response) {
     render2("about", {navid:2, user: request.user}, request, response);
 });
 
-app.get('/test', function(request, response) {
-    response.redirect('/auth/twitter/callbackTest');
-});
-app.get('/auth/twitter/callbackTest', function(request, response) {
-  console.log("hi");
-  twitterAuth.twitterAuthWithCallbackTest();
-});
-app.get('/problem/collatzTest', function(request, response) {
-    var oldText = "The Collatz Conjecture (3n+1 conjecture) asks whether you always reach 1 when performing the following over and over for any starting number n:\r\n    \"If n is odd, multiply it by 3 and add 1. If n is even, divide it by 2.\"";
-    var newText = "New text.";
-    SingleEdit.saveEdit(request.user._id, 'collatz', 'description', oldText, newText);
-    response.redirect('/problem/collatz');
-});
-
 app.get('/contact', function(request, response) {
     render2("contact", {navid:3, user: request.user}, request, response);
 });
@@ -175,6 +168,7 @@ app.get('/categories/:field', function(request, response) {
 
 app.get('/submitEdit', function(request, response) {
 	var q = request.query;
+  console.log(q);
 	if(!request.user) {
 		Problem.findOne({nid:q.problemName}, function(err, result) {
 			render2('problem/problem', {problem: result, alert: true, alertType: "alert-error",
@@ -212,18 +206,28 @@ app.get('/logout', function(request, response) {
 })
 
 app.get('/dashboard', function(request, response) {
+  console.log(request.url);
 	// from https://github.com/sjuvekar/3Dthon/blob/master/route/index.js on 6 September 2013
 	if(!request.user) {
 		response.redirect("/");
 	}
 	else {
-		render2("dashboard", {
-			navid:5, 
-			user: request.user,
-      edits: request.user.edits,
-			alert: false
-		}, request, response);
-	}
+      // LEFT OFF HERE: FIX EDIT LISTING FOR USERS WITH >1 EDIT
+      Edit.find({user: request.user._id}, function(err,list) {
+        if(err) {
+          console.log("err: " + err);
+          response.redirect("/");
+        }
+        else {
+          render2("dashboard", {
+          navid:5, 
+          user: request.user,
+          edits: list,
+          alert: false
+        }, request, response);
+        }
+    });
+  }
 });
 
 app.get('/acknowledgements', function(request, response) {

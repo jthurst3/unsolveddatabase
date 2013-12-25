@@ -64,17 +64,17 @@
 				  							<tr>
 				  								<th>Problem</th>
 				  								<th>Topic</th>
+												<th>New Text</th>
 												<th>Date</th>
-												<th>Changes</th>
 				  							</tr>
 				  						</thead>   
 				  						<tbody>
 											<% edits.forEach(function(edit){ %>
 												<tr>
-													<td><a href="/problem/<%= edit.problem %>"><%= edit.problem %></a></td>
+													<td><a href="/problem/<%= edit.problem %>"><%= edit.problemName %></a></td>
 													<td><%= edit.section %></td>
+													<td><%= edit.newText %></td>
 													<td><%= edit.date %></td>
-													<td><%= edit.changes %></td>
 												</tr>
 											  <% }) %>
 				  						</tbody>

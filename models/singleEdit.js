@@ -6,9 +6,13 @@ var Edit = require('./edit'),
 // inspired by https://github.com/sjuvekar/3Dthon/blob/master/route/index.js
 module.exports.saveEdit = function(user2, prob2, section2, oldText2, newText2) {
 	var date2 = Date.now();
-	var newEdit = new Edit({
+	Problem.findOne({nid: prob2, "content.sectionId": section2}, function(err,result) {
+		console.log("result.name: " + result.name);
+		var probName2 = result.name;
+		var newEdit = new Edit({
 		user : user2,
 		problem : prob2,
+		problemName : probName2,
 		section : section2,
 		date : date2,
 		// placeholder for detecting changes to document
@@ -21,7 +25,7 @@ module.exports.saveEdit = function(user2, prob2, section2, oldText2, newText2) {
 			console.log("here");
 			User.findOne({_id: user2}, function(error, result) {
 				console.log("this is the user:");
-				console.log(result);
+				console.log(result.edits);
 			});
 			// update the problem
 			Problem.update({nid: prob2, "content.sectionId":section2},
@@ -30,12 +34,7 @@ module.exports.saveEdit = function(user2, prob2, section2, oldText2, newText2) {
 				}, function(error, result) {});
 			// update the user
 			User.update({_id: user2}, {
-				$push: {"edits": {
-					problem: prob2,
-					section: section2,
-					date: date2,
-					changes: newText2
-				}}
+				$push: {"edits": res}
 			}, function(error, result) {
 				console.log("this is the error: " + error);
 				console.log("this is the result: " + result);
@@ -45,65 +44,15 @@ module.exports.saveEdit = function(user2, prob2, section2, oldText2, newText2) {
 			console.log(err);
 		}
 	});
+	});
+	
 }
 
-var updateSection = function(theProblem, section, newText) {
-	switch(section) {
-	case "description":
-		theProblem.update({description : newText}, function(err, numberAffected, raw) {
-			console.log(numberAffected);
-		});
-		break;
-	case "statement":
-		theProblem.update({statement : newText}, function(err, numberAffected, raw) {
-			console.log(numberAffected);
-		});
-		break;
-	case "examples":
-		theProblem.update({examples : newText}, function(err, numberAffected, raw) {
-			console.log(numberAffected);
-		});
-		break;
-	case "importance":
-		theProblem.update({importance : newText}, function(err, numberAffected, raw) {
-			console.log(numberAffected);
-		});
-		break;
-	case "hardness":
-		theProblem.update({hardness : newText}, function(err, numberAffected, raw) {
-			console.log(numberAffected);
-		});
-		break;
-	case "history":
-		theProblem.update({history : newText}, function(err, numberAffected, raw) {
-			console.log(numberAffected);
-		});
-		break;
-	case "solutions":
-		theProblem.update({solutions : newText}, function(err, numberAffected, raw) {
-			console.log(numberAffected);
-		});
-		break;
-	case "implications":
-		theProblem.update({implications : newText}, function(err, numberAffected, raw) {
-			console.log(numberAffected);
-		});
-		break;
-	case "faq":
-		theProblem.update({faq : newText}, function(err, numberAffected, raw) {
-			console.log(numberAffected);
-		});
-		break;
-	case "forums":
-		theProblem.update({forums : newText}, function(err, numberAffected, raw) {
-			console.log(numberAffected);
-		});
-		break;
-	case "references":
-		theProblem.update({references : newText}, function(err, numberAffected, raw) {
-			console.log(numberAffected);
-		});
-		break;
-	default: break;
-	}
-}
+
+
+
+
+
+
+
+

@@ -28,9 +28,9 @@ passport.use(new GoogleStrategy({
 
 
 module.exports.googleAuth = function() { return passport.authenticate("google"); };
-module.exports.googleAuthWithCallback = function() { 
+module.exports.googleAuthWithCallback = function(redirect) { 
     return passport.authenticate("google", { 
-	successReturnToOrRedirect: "/dashboard", 
-	failureRedirect: "/signup" 
+	successReturnToOrRedirect: redirect, 
+	failureRedirect: "/" 
     });
 };

@@ -29,7 +29,7 @@ module.exports.twitterAuth = function() {
 };
 module.exports.twitterAuthWithCallback = function() { 
     return passport.authenticate("twitter", { 
-	successReturnToOrRedirect: "/problem/collatz", // change back to /dashboard
-	failureRedirect: "/signup" 
+	successReturnToOrRedirect: '/',
+	failureRedirect: "/" 
     });
 };
