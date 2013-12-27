@@ -1,0 +1,27 @@
+<!-- from http://getbootstrap.com/javascript/#modals -->
+<button class="btn" data-toggle="modal" data-target="#newProblem">
+	Add new <%= field.name %> problem
+</button>
+<div class="modal fade" id="newProblem" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+  	<div class="modal-dialog">
+   		<div class="modal-content">
+   			<form name="problemInput" onsubmit="return validateForm();" action="/newProblem">
+	   			<div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        <h4 class="modal-title" id="modalTitle"><%= field.name %> -- New Problem</h4>
+			    </div>
+			    <div class="modal-body">
+		    		Problem name: <input name="problemName" placeholder="e.g. Collatz Conjecture"><br>
+		    		Problem abbreviation: <input name="problemAbbrev" placeholder="e.g. collatz">
+		    		<input name="topic" type="hidden" value="<%= field.name %>"><br>
+					<input name="topicid" type="hidden" value="<%= field.nid %>">
+					Subtopic: <input name="subtopic" placeholder="e.g. Number Theory"><br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn">Create</button>
+				</div>
+			</form>
+   		</div>
+   	</div>
+   </div>

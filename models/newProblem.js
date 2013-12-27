@@ -1,13 +1,14 @@
 var Problem = require('./problem');
 
-module.exports.newProblem = function(prob2, probName2, topic2, subtopic2) {
+module.exports.newProblem = function(prob2, probName2, topic2, topicid2, subtopic2) {
 	// var date2 = Date.now();
-	Problem.find({nid: prob2}, function(error, result) {
-		if(result == null) {
+	Problem.findOne({nid: prob2}, function(error, result) {
+		if(result == null || result == []) {
 			var newProblem = new Problem({
 				nid: prob2,
 				name: probName2,
 				topic: topic2,
+				topicid: topicid2,
 				subtopic: subtopic2,
 				edits: [],
 				content: [{

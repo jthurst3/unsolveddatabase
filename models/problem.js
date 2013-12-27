@@ -15,6 +15,10 @@ var ProblemSchema = mongoose.Schema({
 	type: String,
 	required: true,
     },
+    topicid: {
+        type: String,
+        required: true
+    },
     subtopic: {
 	type: String,
 	required: true,
@@ -24,8 +28,7 @@ var ProblemSchema = mongoose.Schema({
     	required: true
     },
     edits: {
-	type: [Edit],
-	required: true,
+	   type: [Edit]
     }
 });
 

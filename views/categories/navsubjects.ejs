@@ -1,0 +1,7 @@
+  	  <div class="span3 bs-docs-sidebar">
+  	          <ul class="nav nav-list bs-docs-sidenav">
+				  <% fields.forEach(function(fd) { %>
+					  <li><a href="/categories/<%= fd.nid %>"><i class="icon-chevron-right"></i><%= fd.name %></a></li>
+				  <% })%>
+  	          </ul>
+  	  </div>

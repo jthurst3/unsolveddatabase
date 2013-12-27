@@ -3,6 +3,7 @@
   <head>
     <title><%= field.name %> | The Unsolved Problems Database</title>
 	<% include ../headers %>
+	<script src="/assets/js/checkProblemForm.js"></script>
   </head>
   <body>
 	  <!-- navigation pane -->
@@ -22,10 +23,11 @@
 	  </header>
 	  
     <div class="row">
-	  <% include ../navsubjects %>
+	  <% include navsubjects %>
 	  <div class="span9">
+	  	<% include ../alert %>
 		  <section id="problems">
-			  <h3>Problems</h3>
+			  <h3>Problems &nbsp; <% include newProblem %></h3>
 			  <hr>
 			  <% if(problems.length == 0) { %>
 			  <p>No unsolved problems are listed in this field yet.</p>

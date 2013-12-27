@@ -27,7 +27,8 @@ var async   = require('async')
   , Section = require('./models/section')
   , SingleEdit = require('./models/singleEdit')
   , NewProblem = require('./models/newProblem')
-  , NewSection = require('./models/newSection');
+  , NewSection = require('./models/newSection')
+  , MongoStore = require('connect-mongo')(express);
 
   
 // SET UP THE APP
@@ -38,7 +39,11 @@ app.set("view options", {layout: false}); // from http://stackoverflow.com/quest
 app.set('port', process.env.PORT || 8080);
 app.use(express.cookieParser());
 app.use(express.bodyParser());
-app.use(express.session({secret:'secretkey'}));
+app.use(express.session({
+  store: new MongoStore({
+    url: "mongodb://jthurst3:" + process.env.MONGODB_PASSWORD + "@ds043338.mongolab.com:43338/heroku_app17128323"
+  }),
+  secret:'secretkey'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -72,10 +77,26 @@ app.get('/auth/google/callback', googleAuth.googleAuthWithCallback());
 	
 
 var render2 = function(destination, options, request, response) {
-	Field.find({}, function(err, fieldList) {
-		options.fields = fieldList;
-		response.render(destination, options);
-	});
+  options.alert = request.session.alert;
+  options.alertType = request.session.alertType;
+  options.alertText = request.session.alertText;
+  options.user = request.user;
+  async.series([
+    function(callback) {
+      // console.log(request.headers.referer);
+      Field.find({}, function(err, fieldList) {
+        options.fields = fieldList;
+        response.render(destination, options);
+      });
+      callback();
+    }
+    ], function(err) {
+      if(err) return next(err);
+      // reset some session variables
+      request.session.alert = false;
+      request.session.alertType = null;
+      request.session.alertText = null;
+    })
 }
 
 
@@ -104,7 +125,6 @@ app.get('/', function(request, response) {
     };
     render2("index", {
         navid: 1,
-        user: request.user,
         carouselItems: [
           caption1,
           caption2,
@@ -114,20 +134,20 @@ app.get('/', function(request, response) {
 });
 
 app.get('/about', function(request, response) {
-    render2("about", {navid:2, user: request.user}, request, response);
+    render2("about", {navid:2}, request, response);
 });
 
 app.get('/contact', function(request, response) {
-    render2("contact", {navid:3, user: request.user}, request, response);
+    render2("contact", {navid:3}, request, response);
 });
 
 app.get('/problem/:probName', function(request, response) {
 	var problem = Problem.findOne({nid:request.params.probName}, function(err, result) {
     if(!err) {
       if(result == null) {
-        render2("notFound", {user: request.user}, request, response);
+        render2("notFound", {}, request, response);
       } else {
-      render2("problem/problem", {problem: result, alert: false, user: request.user}, request, response);
+      render2("problem/problem", {problem: result}, request, response);
       }
     }
 		else {
@@ -140,10 +160,10 @@ app.get('/categories/:field', function(request, response) {
 	var category = Field.findOne({nid:request.params.field}, function(err, result) {
     if(!err) {
       if(result == null) {
-        render2("notFound", {user: request.user}, request, response);
+        render2("notFound", {}, request, response);
       } else {
       var problems = Problem.find({topic: result.name}, function(error, result2) {
-        render2("categories/field", {field: result, problems: result2, user: request.user}, request, response);
+        render2("categories/field", {field: result, problems: result2}, request, response);
       });
       }
     } else {
@@ -152,17 +172,60 @@ app.get('/categories/:field', function(request, response) {
 	});
 });
 
+app.get('/newProblem', function(request, response) {
+  var q = request.query;
+  console.log(q);
+  if(!request.user) {
+    console.log("User not logged in.");
+    response.redirect(request.session.lastPage); // change later, potentially (i.e. redirect to homepage with message "error processing your request")
+  } else {
+    // check to see if problem already exists
+    Problem.findOne({nid: q.problemAbbrev}, function(err, problems) {
+      if(err) {
+        console.log(err);
+        response.redirect("/");
+      } else if(problems == null || problems == []) {
+        // problem does not exist, create new problem
+        // modified from http://www.sebastianseilund.com/nodejs-async-in-practice
+        async.series([
+          function(callback) {
+            NewProblem.newProblem(q.problemAbbrev, q.problemName, q.topic, q.topicid, q.subtopic);
+            callback();
+          }
+          ], function(err) {
+            if(err) return next(err);
+            response.redirect('/problem/' + q.problemAbbrev);
+          });
+      } else {
+        console.log(problems);
+        // problem exists, don't submit
+        console.log("Problem already exists.");
+        response.redirect("/categories/" + q.topicid); // change later to include alert
+      }
+    });
+  }
+})
+
 app.get('/submitEdit', function(request, response) {
 	var q = request.query;
+  var ses = request.session;
 	if(!request.user) {
 		Problem.findOne({nid:q.problemName}, function(err, result) {
-			render2('problem/problem', {problem: result, alert: true, alertType: "alert-error",
-			alertText: "You must be logged in to edit site content.", user: request.user}, request, response);
+      ses.alert = true;
+      ses.alertType = "alert-error";
+      ses.alertText = "You must be logged in to edit site content.";
+			render2('problem/problem', {problem: result}, request, response);
 		});
 	}
 	else {
-		SingleEdit.saveEdit(request.user._id, q.problemName, q.problemSection, q.problemOldText, q.problemNewText);
-		response.redirect('/problem/' + q.problemName);
+    async.series([
+      function(callback) {
+        SingleEdit.saveEdit(request.user._id, q.problemName, q.problemSection, q.problemOldText, q.problemNewText);
+        callback();
+      }], function(err) {
+        if(err) return next(err);
+        response.redirect('/problem/' + q.problemName);
+      });
 	}
 });
 
@@ -190,13 +253,19 @@ app.get('/faq', function(request, response) {
 
 app.get('/logout', function(request, response) {
 	request.logout();
+  var ses = request.session;
+  ses.alert = true;
+  ses.alertType = "alert-success";
+  ses.alertText = "Successfully logged out.";
 	response.redirect('/');
 });
 
 app.get('/dashboard', function(request, response) {
-  console.log(request.url);
-	// from https://github.com/sjuvekar/3Dthon/blob/master/route/index.js on 6 September 2013
+	var ses = request.session;
 	if(!request.user) {
+    ses.alert = true;
+    ses.alertType = "alert-error";
+    ses.alertText = "You are not logged in.";
 		response.redirect("/");
 	}
 	else {
@@ -208,9 +277,7 @@ app.get('/dashboard', function(request, response) {
         else {
           render2("dashboard", {
           navid:5, 
-          user: request.user,
-          edits: list,
-          alert: false
+          edits: list
         }, request, response);
         }
     });
