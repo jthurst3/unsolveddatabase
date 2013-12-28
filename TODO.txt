@@ -1,6 +1,5 @@
 Sort sections by sectionNumber
-Redirect user back to page they were on after login
-Create new pages functionality, create new sections for pages (implement this new functionality)
+create new sections for pages (implement this new functionality)
 Create new categories for problems
 Have people submit "robots" that scour the web and add content to the site
 	GitHub request
@@ -8,3 +7,7 @@ Have people submit "robots" that scour the web and add content to the site
 	must be approved by me (can't have robots that automatically delete everything, don't properly cite, or mess up other aspects of site)
 FAQ, carousel to MongoDB
 Public and private profiles for users
+Fix "double-click authentication" problem
+Fix space characters in text issue
+alert messages for user login errors
+comment on StackOverflow question

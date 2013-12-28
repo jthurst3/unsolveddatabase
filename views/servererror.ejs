@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!-- created mostly with reference to https://spark-public.s3.amazonaws.com/startup/images/part1-instructions.pdf-->
+<html lang="en">
+  <head>
+    <title>Server Error | The Unsolved Problems Database</title>
+	
+	<% include headers %>
+	
+  </head>
+  <body>
+	  <!-- navbar -->
+	  <% include navbar %>
+	  
+	  <header class="jumbotron">
+	    	<div class="row-fluid">
+	    	  <div class="span9 offset3">
+	    		  <div class="row-fluid heading">
+	    			  <h2>500 -- Internal Server Error</h2>
+	    		  </div>
+		  		  <div class="row-fluid subheading">
+		  			  <p class="lead">The Unsolved Problems Database</p>
+		  		  </div>
+	    	  </div>
+	    	</div>
+	  </header>
+	  <div class="row-fluid">
+		  <div class="span6 offset3">
+		  	<% include alert %>
+			  <section id="text">
+				  <p>
+					  Unfortunately, there was an error processing your request. As this website is still in development, please help us by <a href="/contact">sending us</a> details of this error.
+				  </p>
+			  </section>
+		  </div>
+  	  </div>
+	  
+	  <% include footer %>
+	  
+	  <% include scripts %>
+  </body>
+</html>

@@ -64,16 +64,26 @@ passport.deserializeUser(function(id, done) {
 });
 
 // Facebook login and callbacks
-app.get('/auth/facebook', facebookAuth.facebookAuth());
-app.get('/auth/facebook/callback', facebookAuth.facebookAuthWithCallback());
+app.get('/auth/facebook', function(request, response, next) {
+  request.session.returnURL = request.headers.referer;
+  return facebookAuth.facebookAuth(request, response, next);});
+app.get('/auth/facebook/callback', function(request, response, next) {
+  return facebookAuth.facebookAuthWithCallback(request, response, next)});
 
 // Twitter login and callbacks
-app.get('/auth/twitter', twitterAuth.twitterAuth());
-app.get('/auth/twitter/callback', twitterAuth.twitterAuthWithCallback());
+app.get('/auth/twitter', function(request, response, next) {
+  request.session.returnURL = request.headers.referer;
+  return twitterAuth.twitterAuth(request, response, next);
+})
+app.get('/auth/twitter/callback', function(request, response, next) {
+  return twitterAuth.twitterAuthWithCallback(request, response, next)});
 
 // Google login and callbacks
-app.get('/auth/google', googleAuth.googleAuth());
-app.get('/auth/google/callback', googleAuth.googleAuthWithCallback());
+app.get('/auth/google', function(request, response, next) {
+  request.session.returnURL = request.headers.referer;
+  return googleAuth.googleAuth(request, response, next);});
+app.get('/auth/google/callback', function(request, response, next) {
+  return googleAuth.googleAuthWithCallback(request, response, next)});
 	
 
 var render2 = function(destination, options, request, response) {
@@ -83,7 +93,6 @@ var render2 = function(destination, options, request, response) {
   options.user = request.user;
   async.series([
     function(callback) {
-      // console.log(request.headers.referer);
       Field.find({}, function(err, fieldList) {
         options.fields = fieldList;
         response.render(destination, options);
@@ -174,16 +183,19 @@ app.get('/categories/:field', function(request, response) {
 
 app.get('/newProblem', function(request, response) {
   var q = request.query;
-  console.log(q);
+  var ses = request.session;
   if(!request.user) {
     console.log("User not logged in.");
-    response.redirect(request.session.lastPage); // change later, potentially (i.e. redirect to homepage with message "error processing your request")
+    ses.alert = true;
+    ses.alertType = "alert-error";
+    ses.alertText = "You must be logged in to create an unsolved problem page.";
+    response.redirect(request.headers.referer || "/");
   } else {
     // check to see if problem already exists
     Problem.findOne({nid: q.problemAbbrev}, function(err, problems) {
       if(err) {
         console.log(err);
-        response.redirect("/");
+        response.redirect("/servererror");
       } else if(problems == null || problems == []) {
         // problem does not exist, create new problem
         // modified from http://www.sebastianseilund.com/nodejs-async-in-practice
@@ -197,9 +209,11 @@ app.get('/newProblem', function(request, response) {
             response.redirect('/problem/' + q.problemAbbrev);
           });
       } else {
-        console.log(problems);
         // problem exists, don't submit
         console.log("Problem already exists.");
+        ses.alert = true;
+        ses.alertType = "alert-error";
+        ses.alertText = "Problem \"" + q.topicid + "\" already exists.";
         response.redirect("/categories/" + q.topicid); // change later to include alert
       }
     });
@@ -210,12 +224,10 @@ app.get('/submitEdit', function(request, response) {
 	var q = request.query;
   var ses = request.session;
 	if(!request.user) {
-		Problem.findOne({nid:q.problemName}, function(err, result) {
-      ses.alert = true;
-      ses.alertType = "alert-error";
-      ses.alertText = "You must be logged in to edit site content.";
-			render2('problem/problem', {problem: result}, request, response);
-		});
+    ses.alert = true;
+    ses.alertType = "alert-error";
+    ses.alertText = "You must be logged in to edit site content.";
+    response.redirect('/problem/' + q.problemName);
 	}
 	else {
     async.series([
@@ -231,14 +243,18 @@ app.get('/submitEdit', function(request, response) {
 
 app.get('/sandboxEdit', function(request, response) {
   var q = request.query;
+  var ses = request.session;
   if(!request.user) {
-    response.redirect("/");
+    ses.alert = true;
+    ses.alertType = "alert-error";
+    ses.alertText = "You must be logged in to edit your sandbox.";
+    response.redirect(request.headers.referer || "/");
   } else {
     // update user sandbox
     User.update({_id: request.user}, {$set: {"sandbox":q.sandboxNewText}}, function(err, result) {
       if(err) {
         console.log(err);
-        response.redirect('/dashboard');
+        response.redirect('/servererror');
       }
       else {
         response.redirect('/dashboard');
@@ -248,7 +264,7 @@ app.get('/sandboxEdit', function(request, response) {
 })
 
 app.get('/faq', function(request, response) {
-    render2("faq", {navid:4, user: request.user}, request, response);
+    render2("faq", {navid:4}, request, response);
 });
 
 app.get('/logout', function(request, response) {
@@ -266,13 +282,13 @@ app.get('/dashboard', function(request, response) {
     ses.alert = true;
     ses.alertType = "alert-error";
     ses.alertText = "You are not logged in.";
-		response.redirect("/");
+		response.redirect(request.headers.referer || "/");
 	}
 	else {
       Edit.find({user: request.user._id}, function(err,list) {
         if(err) {
-          console.log("err: " + err);
-          response.redirect("/");
+          console.log(err);
+          response.redirect("/servererror");
         }
         else {
           render2("dashboard", {
@@ -285,8 +301,12 @@ app.get('/dashboard', function(request, response) {
 });
 
 app.get('/acknowledgements', function(request, response) {
-  render2("acknowledgements", {user:request.user}, request, response);
+  render2("acknowledgements", {}, request, response);
 });
+
+app.get('/servererror', function(request, response) {
+  render2("servererror", {}, request, response);
+})
 
 app.get('*', function(request, response) {
   render2('notFound', {user: request.user}, request, response);

@@ -24,11 +24,27 @@ passport.use(new FacebookStrategy({
   }
 ));
 
-
-module.exports.facebookAuth = function() { return passport.authenticate("facebook"); };
-module.exports.facebookAuthWithCallback = function() { 
-    return passport.authenticate("facebook", { 
-	successReturnToOrRedirect: '/dashboard', 
-	failureRedirect: '/' 
+module.exports.facebookAuth = function(request, response, next) { 
+  // modified from http://passportjs.org/guide/authenticate/
+  return passport.authenticate("facebook", function(err, user, info) {
+    if(err) return next(err);
+    if(!user) return "/";
+    request.login(user, function(error) {
+      if(error) return next(error);
+      return response.redirect(request.session.returnURL);
     });
-};  
+  })(request, response, next); 
+};
+
+module.exports.facebookAuthWithCallback = function(request, response, next) { 
+  // modified from http://passportjs.org/guide/authenticate/
+  return passport.authenticate("facebook", function(err, user, info) {
+    if(err) return next(err);
+    if(!user) return "/";
+    request.login(user, function(error) {
+      if(error) return next(error);
+      return response.redirect(request.session.returnURL);
+    });
+  })(request, response, next); 
+};
+

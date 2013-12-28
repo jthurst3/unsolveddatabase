@@ -24,12 +24,26 @@ passport.use(new TwitterStrategy({
   }
 ));
 
-module.exports.twitterAuth = function() { 
-	return passport.authenticate("twitter"); 
-};
-module.exports.twitterAuthWithCallback = function() { 
-    return passport.authenticate("twitter", { 
-	successReturnToOrRedirect: '/dashboard',
-	failureRedirect: "/" 
+module.exports.twitterAuth = function(request, response, next) { 
+  // modified from http://passportjs.org/guide/authenticate/
+  return passport.authenticate("twitter", function(err, user, info) {
+    if(err) return next(err);
+    if(!user) return "/";
+    request.login(user, function(error) {
+      if(error) return next(error);
+      return response.redirect(request.session.returnURL);
     });
+  })(request, response, next); 
+};
+
+module.exports.twitterAuthWithCallback = function(request, response, next) { 
+  // modified from http://passportjs.org/guide/authenticate/
+  return passport.authenticate("twitter", function(err, user, info) {
+    if(err) return next(err);
+    if(!user) return "/";
+    request.login(user, function(error) {
+      if(error) return next(error);
+      return response.redirect(request.session.returnURL);
+    });
+  })(request, response, next);
 };

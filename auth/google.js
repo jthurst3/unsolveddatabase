@@ -26,11 +26,27 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-
-module.exports.googleAuth = function() { return passport.authenticate("google"); };
-module.exports.googleAuthWithCallback = function() { 
-    return passport.authenticate("google", { 
-	successReturnToOrRedirect: '/dashboard', 
-	failureRedirect: "/" 
+module.exports.googleAuth = function(request, response, next) { 
+  // modified from http://passportjs.org/guide/authenticate/
+  return passport.authenticate("google", function(err, user, info) {
+    if(err) return next(err);
+    if(!user) return "/";
+    request.login(user, function(error) {
+      if(error) return next(error);
+      return response.redirect(request.session.returnURL);
     });
+  })(request, response, next); 
 };
+
+module.exports.googleAuthWithCallback = function(request, response, next) { 
+  // modified from http://passportjs.org/guide/authenticate/
+  return passport.authenticate("google", function(err, user, info) {
+    if(err) return next(err);
+    if(!user) return "/";
+    request.login(user, function(error) {
+      if(error) return next(error);
+      return response.redirect(request.session.returnURL);
+    });
+  })(request, response, next); 
+};
+
