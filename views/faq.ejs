@@ -23,18 +23,18 @@
     	  </div>
     	</div>
   </header>
+
+  <% include alert %>
   
   <!-- For the FAQ, we introduce a little bit of JS, using the accordion. -->
   <!-- This brings in jquery.js and bootstrap.js as dependencies. -->
   <!-- http://twitter.github.io/bootstrap/javascript.html#collapse -->
   <div class="row-fluid faq">
 	  <div class="span9 offset3">
-	  	<% include alert %>
 		  <section id="faq">
 			  <h3>FAQ</h3>
 			  <hr>
 	          <div class="accordion" id="accordion2">
-	  		  <div class="faq">
 	            <div class="accordion-group">
 	              <div class="accordion-heading">
 	                <a class="accordion-toggle" data-toggle="collapse"
@@ -100,7 +100,6 @@
 	                </div>
 	              </div>
 	            </div>
-	          </div>
 	          </div>
 		  </section>
 	  </div>
