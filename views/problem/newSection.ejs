@@ -1,0 +1,26 @@
+<!-- from http://getbootstrap.com/javascript/#modals -->
+<button class="btn" data-toggle="modal" data-target="#newSection">
+	Create new section
+</button>
+<div class="modal fade" id="newSection" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+  	<!-- <div class="modal-dialog">
+   		<div class="modal-content"> -->
+   			<form name="sectionInput" onsubmit="return validateSection();" action="/newSection">
+	   			<div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        <h4 class="modal-title" id="modalTitle">New Section</h4>
+			    </div>
+			    <div class="modal-body">
+		    		Name: <input name="sectionName" placeholder="e.g. Description"><br>
+		    		ID: <input name="section" placeholder="e.g. description"><br>
+					<input type="hidden" name="name" value="<%= problem.nid %>">
+					<input type="hidden" name="sectionNumber" value="<%= problem.content.length + 1 %>">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn">Create</button>
+				</div>
+			</form>
+   		<!-- </div>
+   	</div> -->
+   </div>

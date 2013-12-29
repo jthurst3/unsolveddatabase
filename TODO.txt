@@ -1,13 +1,11 @@
 Sort sections by sectionNumber
-create new sections for pages (implement this new functionality)
-Create new categories for problems
+More sophisticated checks to see if forms are valid
 Have people submit "robots" that scour the web and add content to the site
 	GitHub request
 	proper citations
 	must be approved by me (can't have robots that automatically delete everything, don't properly cite, or mess up other aspects of site)
-FAQ, carousel to MongoDB
 Public and private profiles for users
 Fix "double-click authentication" problem
 Fix space characters in text issue
-alert messages for user login errors
+Change alert pop-ups from bad forms to Bootstrap alerts
 comment on StackOverflow question

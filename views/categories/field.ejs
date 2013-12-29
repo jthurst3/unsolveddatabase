@@ -4,6 +4,7 @@
     <title><%= field.name %> | The Unsolved Problems Database</title>
 	<% include ../headers %>
 	<script src="/assets/js/checkProblemForm.js"></script>
+	<script src="/assets/js/checkFieldForm.js"></script>
   </head>
   <body>
 	  <!-- navigation pane -->
@@ -24,6 +25,7 @@
 	  
     <div class="row">
 	  <% include navsubjects %>
+	  <% include newField %>
 	  <div class="span9">
 	  	<% include ../alert %>
 		  <section id="problems">

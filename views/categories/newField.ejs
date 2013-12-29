@@ -1,0 +1,22 @@
+<!-- from http://getbootstrap.com/javascript/#modals -->
+<div class="modal fade" id="newField" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+  	<!-- <div class="modal-dialog">
+   		<div class="modal-content"> -->
+   			<form name="fieldInput" onsubmit="return validateField();" action="/newField">
+	   			<div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        <h4 class="modal-title" id="modalTitle">New Field</h4>
+			    </div>
+			    <div class="modal-body">
+		    		Name: <input name="name" placeholder="e.g. Computer Science"><br>
+		    		ID: <input name="nid" placeholder="e.g. compsci"><br>
+					<input type="hidden" name="currentField" value="<%= field.nid %>">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn">Create</button>
+				</div>
+			</form>
+   		<!-- </div>
+   	</div> -->
+   </div>

@@ -32,6 +32,7 @@ var async   = require('async')
   , NewSection = require('./models/newSection')
   , NewFAQ = require('./models/newFAQ')
   , NewCarouselItem = require('./models/newCarouselItem')
+  , NewField = require('./models/newField')
   , MongoStore = require('connect-mongo')(express);
 
   
@@ -142,7 +143,8 @@ app.get('/problem/:probName', function(request, response) {
       if(result == null) {
         render2("notFound", {}, request, response);
       } else {
-      render2("problem/problem", {problem: result}, request, response);
+        // find an easy way to sort a MongoDB subarray so we don't have to keep "find"ing the same problem
+        render2("problem/problem", {problem: result}, request, response);
       }
     }
 		else {
@@ -224,6 +226,48 @@ app.get('/submitEdit', function(request, response) {
         response.redirect('/problem/' + q.problemName);
       });
 	}
+});
+
+app.get('/newSection', function(request, response) {
+  var q = request.query;
+  var ses = request.session;
+  if(!request.user) {
+    ses.alert = true;
+    ses.alertType = "alert-error";
+    ses.alertText = "You must be logged in to edit site content.";
+    response.redirect('/problem/' + q.problemName);
+  }
+  else {
+    async.series([
+      function(callback) {
+        NewSection.newSection(q.name, q.section, q.sectionName, parseInt(q.sectionNumber));
+        callback();
+      }], function(err) {
+        if(err) return next(err);
+        response.redirect('/problem/' + q.name);
+      });
+  }
+});
+
+app.get('/newField', function(request, response) {
+  var q = request.query;
+  var ses = request.session;
+  if(!request.user) {
+    ses.alert = true;
+    ses.alertType = "alert-error";
+    ses.alertText = "You must be logged in to create a new field.";
+    response.redirect('/categories/' + q.currentField);
+  }
+  else {
+    async.series([
+      function(callback) {
+        NewField.newField(q.name, q.nid);
+        callback();
+      }], function(err) {
+        if(err) return next(err);
+        response.redirect('/categories/' + q.nid);
+      });
+  }
 });
 
 app.get('/sandboxEdit', function(request, response) {
@@ -347,6 +391,31 @@ app.get('/superuser', function(request, response) {
       CarouselItem.find({}, function(err2, items) {
         render2("superuser", {questions: questions, carouselItems: items}, request, response);
       });
+    });
+  }
+});
+
+app.get('/sortProblems', function(request, response) {
+  if(!request.user) {
+    console.log("not valid superuser (sort problem sections).");
+    response.redirect("/notFound");
+  } else if(request.session.passport.user != process.env.PASSPORT_SUPERUSER) {
+    console.log("not valid superuser (sort problem sections).");
+    response.redirect("/notFound");
+  } else {
+    console.log("valid superuser");
+    Problem.update({}, 
+    {$push: {"content": {
+      $each: [],
+      $sort: {"sectionNumber": 1},
+      $slice: Infinity
+    }}}, function(err, result) {
+      if(err) {
+        console.log(err);
+        response.redirect('/servererror');
+      } else {
+        response.redirect(request.headers.referer || '/problem/collatz');
+      }
     });
   }
 });

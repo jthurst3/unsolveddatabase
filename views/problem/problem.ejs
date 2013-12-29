@@ -5,6 +5,7 @@
 	<% include ../headers %>
 	
 	<script type="text/javascript" src="../../models/singleEdit.js"></script>
+  <script src="/assets/js/checkSectionForm.js"></script>
 </head>
 <body data-spy="scroll" data-target=".bs-docs-sidebar" data-offset-top="500">
   <% include ../navbar %>
@@ -28,6 +29,8 @@
 		  <% include navlist %>
 		  <div class="span9 offset3">
 			  <% include ../alert %>
+
+        <% include newSection %>
 			  
 			  <% for(var i = 0; i < problem.content.length; i++) { %>
 			  	<% include sectionTemplate %>

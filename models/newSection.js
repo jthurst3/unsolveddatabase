@@ -2,15 +2,17 @@ var Problem = require('./problem');
 
 module.exports.newSection = function(prob2, section2, sectionName2, sectionNumber2) {
 	// error check
-	Problem.find({nid: prob2, "content.sectionId": section2}, function(error, result) {
-		if(result == null) {
+	Problem.findOne({nid: prob2, "content.sectionId": section2}, function(error, result) {
+		if(result == null || result == []) {
 			// update problem
 			Problem.update({nid: prob2}, {
 				$push: {
-					sectionId: section2,
-					sectionName: sectionName2,
-					sectionNumber: sectionNumber2,
-					sectionText: ""
+					"content": {
+						sectionId: section2,
+						sectionName: sectionName2,
+						sectionNumber: sectionNumber2,
+						sectionText: ""
+					}
 				}
 			}, function(error, result) {});
 		} else {
