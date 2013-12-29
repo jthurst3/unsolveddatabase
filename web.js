@@ -3,9 +3,9 @@
 // Login strategies and mongoose initialization inspired by Sudeep Juvekar's repository: https://github.com/sjuvekar/3Dthon
 // Persistent sessions inspired by http://stackoverflow.com/questions/7990890/how-to-implement-login-auth-in-node-js
 
-// use correct environment
+/*// use correct environment
 var env = require('node-env-file');
-env(__dirname + '/.env');
+env(__dirname + '/.env');*/
 
 // IMPORT STATEMENTS
 var async   = require('async')
