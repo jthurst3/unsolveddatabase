@@ -25,9 +25,13 @@ var async   = require('async')
   , Edit = require('./models/edit')
   , Field = require('./models/field')
   , Section = require('./models/section')
+  , FAQ = require('./models/faq')
+  , CarouselItem = require('./models/carouselitem')
   , SingleEdit = require('./models/singleEdit')
   , NewProblem = require('./models/newProblem')
   , NewSection = require('./models/newSection')
+  , NewFAQ = require('./models/newFAQ')
+  , NewCarouselItem = require('./models/newCarouselItem')
   , MongoStore = require('connect-mongo')(express);
 
   
@@ -111,35 +115,17 @@ var render2 = function(destination, options, request, response) {
 
 // Render homepage (note trailing slash): example.com/
 app.get('/', function(request, response) {
-    var caption1 = {
-      pic: '/assets/img/soap-bubble-63982_1280.jpg',
-      url: '/',
-      color: 'gold',
-      text: 'The Unsolved Problems Database',
-      subtext: 'Learn about the world\'s greatest mysteries.'
-    };
-    var caption2 = {
-      pic: '/assets/img/logo.svg',
-      url: '/problem/collatz',
-      color: 'red',
-      text: 'Collatz Conjecture',
-      subtext: 'Mathematics -- Number Theory'
-    };
-    var caption3 = {
-      pic: '/assets/img/ball-72374_640.jpg',
-      url: '/problem/beal',
-      color: 'white',
-      text: 'Beal\'s Conjecture',
-      subtext: 'Mathematics -- Number Theory'
-    };
-    render2("index", {
+  CarouselItem.find({}, function(err, items) {
+    if(err) {
+      console.log(err);
+      response.redirect('/servererror');
+    } else {
+      render2("index", {
         navid: 1,
-        carouselItems: [
-          caption1,
-          caption2,
-          caption3
-        ]
+        carouselItems: items
     }, request, response);
+    }
+  });
 });
 
 app.get('/about', function(request, response) {
@@ -210,7 +196,6 @@ app.get('/newProblem', function(request, response) {
           });
       } else {
         // problem exists, don't submit
-        console.log("Problem already exists.");
         ses.alert = true;
         ses.alertType = "alert-error";
         ses.alertText = "Problem \"" + q.topicid + "\" already exists.";
@@ -261,10 +246,59 @@ app.get('/sandboxEdit', function(request, response) {
       }
     });
   }
-})
+});
+
+app.get('/newCarouselItem', function(request, response) {
+  var q = request.query;
+  var ses = request.session;
+  if(!request.user) {
+    console.log("not valid superuser (submitting a carousel item).");
+    response.redirect("/notFound");
+  } else if(ses.passport.user != process.env.PASSPORT_SUPERUSER) {
+    console.log("not valid superuser (submitting a carousel item).");
+    response.redirect("/notFound");
+  } else {
+    async.series([
+      function(callback) {
+        NewCarouselItem.newCarouselItem(q.number, q.pic, q.url, q.color, q.text, q.subtext);
+        callback();
+      }], function(err) {
+        if(err) return next(err);
+        response.redirect(request.headers.referer || "/");
+      });
+  }
+});
+
+app.get('/newFAQ', function(request, response) {
+  var q = request.query;
+  var ses = request.session;
+  if(!request.user) {
+    console.log("not valid superuser (submitting an FAQ question).");
+    response.redirect("/notFound");
+  } else if(ses.passport.user != process.env.PASSPORT_SUPERUSER) {
+    console.log("not valid superuser (submitting an FAQ question).");
+    response.redirect("/notFound");
+  } else {
+    async.series([
+      function(callback) {
+        NewFAQ.newFAQ(q.number, q.question, q.answer);
+        callback();
+      }], function(err) {
+        if(err) return next(err);
+        response.redirect('/faq');
+      });
+  }
+});
 
 app.get('/faq', function(request, response) {
-    render2("faq", {navid:4}, request, response);
+  FAQ.find({}, function(err, list) {
+    if(err) {
+      console.log(err);
+      response.redirect("/servererror");
+    } else {
+      render2("faq", {navid:4, questions: list}, request, response);
+    }
+  });
 });
 
 app.get('/logout', function(request, response) {
@@ -296,6 +330,23 @@ app.get('/dashboard', function(request, response) {
           edits: list
         }, request, response);
         }
+    });
+  }
+});
+
+app.get('/superuser', function(request, response) {
+  if(!request.user) {
+    console.log("not valid superuser.");
+    response.redirect("/notFound");
+  } else if(request.session.passport.user != process.env.PASSPORT_SUPERUSER) {
+    console.log("not valid superuser.");
+    response.redirect("/notFound");
+  } else {
+    console.log("valid superuser");
+    FAQ.find({}, function(err, questions) {
+      CarouselItem.find({}, function(err2, items) {
+        render2("superuser", {questions: questions, carouselItems: items}, request, response);
+      });
     });
   }
 });

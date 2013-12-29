@@ -1,0 +1,28 @@
+<!-- from http://getbootstrap.com/javascript/#modals -->
+<button class="btn" data-toggle="modal" data-target="#newCarouselItem">
+	Add new Carousel Item
+</button>
+<div class="modal fade" id="newCarouselItem" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+  	<!-- <div class="modal-dialog">
+   		<div class="modal-content"> -->
+   			<form name="carouselInput" onsubmit="return validateCarouselItem();" action="/newCarouselItem">
+	   			<div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        <h4 class="modal-title" id="modalTitle">New Carousel Item</h4>
+			    </div>
+			    <div class="modal-body">
+		    		Number: <input name="number"><br>
+		    		Pic: <input name="pic" placeholder="e.g. /assets/img/logo.svg"><br>
+		    		URL: <input name="url" placeholder="e.g. /problem/collatz"><br>
+		    		Color: <input name="color" placeholder="e.g. red"><br>
+					Text: <input name="text" placeholder="e.g. Collatz Conjecture"><br>
+					Subtext: <input name="subtext" placeholder="e.g. Mathematics -- Number Theory"><br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn">Create</button>
+				</div>
+			</form>
+   		<!-- </div>
+   	</div> -->
+   </div>

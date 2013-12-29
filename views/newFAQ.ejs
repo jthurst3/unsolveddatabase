@@ -1,0 +1,25 @@
+<!-- from http://getbootstrap.com/javascript/#modals -->
+<button class="btn" data-toggle="modal" data-target="#newFAQ">
+	Add new FAQ
+</button>
+<div class="modal fade" id="newFAQ" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+  	<!-- <div class="modal-dialog">
+   		<div class="modal-content"> -->
+   			<form name="faqInput" onsubmit="return validateFAQ();" action="/newFAQ">
+	   			<div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        <h4 class="modal-title" id="modalTitle">New FAQ</h4>
+			    </div>
+			    <div class="modal-body">
+		    		Number: <input name="number"><br>
+		    		Question: <input name="question" placeholder="e.g. What does FAQ stand for?"><br>
+					Answer: <input name="answer" placeholder="e.g. Frequently Asked Question"><br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn">Create</button>
+				</div>
+			</form>
+   		<!-- </div>
+   	</div> -->
+   </div>

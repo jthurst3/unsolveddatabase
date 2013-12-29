@@ -7,7 +7,6 @@ var Edit = require('./edit'),
 module.exports.saveEdit = function(user2, prob2, section2, oldText2, newText2) {
 	var date2 = Date.now();
 	Problem.findOne({nid: prob2, "content.sectionId": section2}, function(err,result) {
-		console.log("result.name: " + result.name);
 		var probName2 = result.name;
 		var newEdit = new Edit({
 		user : user2,
@@ -28,10 +27,7 @@ module.exports.saveEdit = function(user2, prob2, section2, oldText2, newText2) {
 			// update the user
 			User.update({_id: user2}, {
 				$push: {"edits": res}
-			}, function(error, result) {
-				console.log("this is the error: " + error);
-				console.log("this is the result: " + result);
-			});
+			}, function(error, result) {});
 		}
 		else {
 			console.log(err);

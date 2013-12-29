@@ -30,76 +30,14 @@
   <!-- This brings in jquery.js and bootstrap.js as dependencies. -->
   <!-- http://twitter.github.io/bootstrap/javascript.html#collapse -->
   <div class="row-fluid faq">
-	  <div class="span9 offset3">
+	  <div class="span6 offset3">
 		  <section id="faq">
 			  <h3>FAQ</h3>
 			  <hr>
-	          <div class="accordion" id="accordion2">
-	            <div class="accordion-group">
-	              <div class="accordion-heading">
-	                <a class="accordion-toggle" data-toggle="collapse"
-	                   data-parent="#accordion2" href="#collapseOne">
-	                  What is the Unsolved Problems Database?
-	                </a>
-	              </div>
-	              <div id="collapseOne" class="accordion-body collapse">
-	                <div class="accordion-inner">
-	                  The Unsolved Problems Database is a website dedicated to explaining unsolved problems in academics to anyone wishing to learn more about them.
-	                </div>
-	              </div>
-	            </div>
-	            <div class="accordion-group">
-	              <div class="accordion-heading">
-	                <a class="accordion-toggle" data-toggle="collapse"
-	                   data-parent="#accordion2" href="#collapseTwo">
-	                  What are unsolved problems?
-	                </a>
-	              </div>
-	              <div id="collapseTwo" class="accordion-body collapse">
-	                <div class="accordion-inner">
-	                  An "unsolved problem" is any problem that people don't know the answer to.
-	                </div>
-	              </div>
-	            </div>
-	            <div class="accordion-group">
-	              <div class="accordion-heading">
-	                <a class="accordion-toggle" data-toggle="collapse"
-	                   data-parent="#accordion2" href="#collapseThree">
-	                  What types of unsolved problems are on this website?
-	                </a>
-	              </div>
-	              <div id="collapseThree" class="accordion-body collapse">
-	                <div class="accordion-inner">
-	  				Unsolved problems in math, the natural sciences, engineering, economics, psychology, or any other academic field can be posted on this website.
-	                </div>
-	              </div>
-	            </div>
-	            <div class="accordion-group">
-	              <div class="accordion-heading">
-	                <a class="accordion-toggle" data-toggle="collapse"
-	                   data-parent="#accordion2" href="#collapseFour">
-	  			   Why are there so few unsolved problems currently on the website?
-	                </a>
-	              </div>
-	              <div id="collapseFour" class="accordion-body collapse">
-	                <div class="accordion-inner">
-	  				  This website is in the process of being developed, and at this point we don't have much content to offer. Soon however, any user of this website will be able to contribute an unsolved problem, as well as edit the contents of existing unsolved problems.
-	                </div>
-	              </div>
-	            </div>
-	            <div class="accordion-group">
-	              <div class="accordion-heading">
-	                <a class="accordion-toggle" data-toggle="collapse"
-	                   data-parent="#accordion2" href="#collapseFive">
-	  			   How can I contribute?
-	                </a>
-	              </div>
-	              <div id="collapseFive" class="accordion-body collapse">
-	                <div class="accordion-inner">
-	  				  By logging in via Facebook, Twitter or Google, you can navigate to one of our listed unsolved problems and edit its content. In the near future, you will also be able to create pages for unlisted problems, as well as contribute to discussions of any unsolved problem via embedded Facebook comments.
-	                </div>
-	              </div>
-	            </div>
+	          <div class="panel-group" id="accordion2">
+	          	<% questions.forEach(function(question) { %>
+	          		<% include faqtemp %>
+	          	<% }) %>
 	          </div>
 		  </section>
 	  </div>

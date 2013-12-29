@@ -5,7 +5,6 @@ var mongoose = require("mongoose"),
 module.exports.render = function(destination, options, request, response) {
 	Field.find({}, function(err, fieldList) {
 		options.fields = fieldList;
-		console.log(options);
 		response.render(destination, options);
 	});
 }

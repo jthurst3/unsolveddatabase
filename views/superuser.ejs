@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!-- created mostly with reference to https://spark-public.s3.amazonaws.com/startup/images/part1-instructions.pdf-->
+<html lang="en">
+<head>
+  <title>Superuser | The Unsolved Problems Database</title>
+  
+  <% include headers %>
+  <script src="/assets/js/checkFAQForm.js"></script>
+  <script src="/assets/js/checkCarouselForm.js"></script>
+</head>
+<body>
+  <!-- navigation pane -->
+  <% include navbar %>
+  
+  <header class="jumbotron">
+    	<div class="row-fluid">
+    	  <div class="span9 offset3">
+    		  <div class="row-fluid heading">
+    			  <h2><%= user.name %></h2>
+    		  </div>
+	  		  <div class="row-fluid subheading">
+	  			  <p class="lead">Admin Console</p>
+	  		  </div>
+    	  </div>
+    	</div>
+  </header>
+
+  <div class="row-fluid">
+    <div class="span3 sidebar-nav">
+      <div class="well" style="width:300px; padding: 8px 0; text-align:center;">
+        <ul class="nav nav-list"> 
+          <li class="nav-header"> Navigation Pane</li>  
+        <li class="divider"></li>      
+        <li><a href="#carousel"> Carousel</a></li>
+          <li><a href="#faq"> FAQ</a></li>
+        <li><a href="/dashboard"> Dashboard</a></li>
+        <li class="divider"></li>
+          <li><a href="/logout"> Logout</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="span9">
+      <% include alert %>
+
+      <section id="carousel">
+        <h3>Carousel &nbsp; <% include newCarouselItem %></h3>
+        <hr>
+        <% include carousel %>
+      </section>
+      <section id="faq">
+        <h3>FAQ &nbsp; <% include newFAQ %></h3>
+        <hr>
+        <div class="panel-group" id="accordion2">
+              <% questions.forEach(function(question) { %>
+                <% include faqtemp %>
+              <% }) %>
+            </div>
+      </section>
+    </div>
+  </div>
+  
+  <% include footer %>
+
+  <!-- modified from https://github.com/sjuvekar/3Dthon/blob/master/index.html on August 26, 2013 -->
+    <style>
+    /* Carousel base class */
+          .carousel {
+            margin-bottom: 60px;
+          }
+      
+          .carousel .container {
+            position: relative;
+            z-index: 9;
+          }
+      
+          .carousel-control {
+            margin-top: 50px;
+            /*text-shadow: 0 1px 1px rgba(1,0,0,.4);*/
+            background-color: transparent;
+            border: 0;
+            z-index: 10;
+          }
+      
+          .carousel .item {
+            height: 500px;
+            background-position: center top;
+            background-repeat: no-repeat;
+            background-size: cover;
+            -moz-background-size: cover;
+            -webkit-background-size: cover;
+          }
+      
+          .carousel-caption {
+            background-color: transparent;
+            position: static;
+            max-width: 550px;
+            padding: 0 20px;
+            margin-top: 200px;
+            margin-left: 5%;
+          }
+      
+          .carousel-caption h1,
+          .carousel-caption .lead {
+            margin: 0;
+            line-height: 1.25;
+            color: #fff;
+            text-shadow: 0 1px 1px rgba(1,0,0,.4);
+          }
+      
+          .carousel-caption .btn {
+            margin-top: 10px;
+          }
+    </style>
+  
+  <% include scripts %>
+
+  <!-- from http://stackoverflow.com/questions/9353294/bootstrap-carousel-not-working -->
+    <script>
+    // Load this when the DOM is ready
+    $(function(){
+      // You used .myCarousel here. 
+      // That's the class selector not the id selector,
+      // which is #myCarousel
+      $('#myCarousel').carousel();
+    });
+    </script>
+</body>
+</html>
