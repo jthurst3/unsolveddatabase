@@ -1,5 +1,6 @@
 Sort sections by sectionNumber
 More sophisticated checks to see if forms are valid
+fix edits for other users
 Have people submit "robots" that scour the web and add content to the site
 	GitHub request
 	proper citations
