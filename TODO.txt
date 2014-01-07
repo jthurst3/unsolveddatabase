@@ -1,6 +1,6 @@
 Sort sections by sectionNumber
 More sophisticated checks to see if forms are valid
-fix edits for other users
+fix edits for other users (fixed?)
 Have people submit "robots" that scour the web and add content to the site
 	GitHub request
 	proper citations
@@ -9,4 +9,6 @@ Public and private profiles for users
 Fix "double-click authentication" problem
 Fix space characters in text issue
 Change alert pop-ups from bad forms to Bootstrap alerts
-comment on StackOverflow question
+Put more emphasis on forum for discussing problems, rather than resource for learning about them
+Fix article layout so section titles don't take up most of the space
+Contact info -- put personal website

@@ -7,11 +7,15 @@ function validateSection() {
 	var pSectionName = form["sectionName"].value;
 	var pSectionNumber = form["sectionNumber"].value;
 	if(pName == null || pName == "") {
-		alert("Problem must have an ID.");
+		alert = true;
+		alertType="alert-error";
+		alertText="Problem must have a name.";
 		return false;
 	}
 	if(pSection == null || pSection == "") {
-		alert("Section must have an ID.");
+		alert = true;
+		alertType="alert-error";
+		alertText="Section must have an ID.";
 		return false;
 	}
 	if(pSectionName == null || pSectionName == "") {
