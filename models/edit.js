@@ -14,14 +14,18 @@ var EditSchema = mongoose.Schema({
     	type: String,
     	required: true
     },
+    oldSection: {
+	type: String,
+	required: true,
+    },
     section: {
 	type: String,
 	required: true,
     },
-    /*sectionName: {
+    sectionName: {
     	type: String,
     	required: true
-    },*/
+    },
     date: {
 	type: Date,
 	required: true,

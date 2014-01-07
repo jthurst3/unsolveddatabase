@@ -6,6 +6,7 @@
 	
 	<script type="text/javascript" src="../../models/singleEdit.js"></script>
   <script src="/assets/js/checkSectionForm.js"></script>
+  <script src="/assets/js/checkEditForm.js"></script>
 </head>
 <body data-spy="scroll" data-target=".bs-docs-sidebar" data-offset-top="500">
   <% include ../navbar %>
@@ -33,7 +34,7 @@
         <% include newSection %>
 			  
 			  <% for(var i = 0; i < problem.content.length; i++) { %>
-			  	<% include sectionTemplate %>
+			  	<% include sectionTemplate2 %>
 			  <% } %>
 		  </div>
     </div>

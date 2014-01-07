@@ -219,11 +219,11 @@ app.get('/submitEdit', function(request, response) {
 	else {
     async.series([
       function(callback) {
-        SingleEdit.saveEdit(request.user._id, q.problemName, q.problemSection, q.problemOldText, q.problemNewText);
+        SingleEdit.saveEdit(request.user._id, q.problemId, q.problemOldSection, q.problemSection, q.sectionName, q.problemOldText, q.problemNewText);
         callback();
       }], function(err) {
         if(err) return next(err);
-        response.redirect('/problem/' + q.problemName);
+        response.redirect('/problem/' + q.problemId);
       });
 	}
 });

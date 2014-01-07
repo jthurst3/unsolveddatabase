@@ -1,0 +1,28 @@
+<!-- from http://getbootstrap.com/javascript/#modals -->
+<button class="btn" data-toggle="modal" data-target="#editSection<%= problem.content[i].sectionId %>">
+	Edit
+</button>
+<div class="modal fade" id="editSection<%= problem.content[i].sectionId %>" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+  	<!-- <div class="modal-dialog">
+   		<div class="modal-content"> -->
+   			<form name="<%= problem.content[i].sectionId %>Input" onsubmit="return validateEdit(<%= problem.content[i].sectionId %>Input);" action="/submitEdit">
+	   			<div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        <h4 class="modal-title" id="modalTitle">Edit</h4>
+			    </div>
+			    <div class="modal-body">
+			    	<input type="hidden" name="problemId" value="<%= problem.nid %>">
+			    	<input type="hidden" name="problemOldSection" value="<%= problem.content[i].sectionId %>">
+			    	ID: <input name="problemSection" value="<%= problem.content[i].sectionId %>" placeholder="<%= problem.content[i].sectionId %>"><br>
+		    		Name: <input name="sectionName" value="<%= problem.content[i].sectionName %>" placeholder="<%= problem.content[i].sectionName %>"><br>
+					<input type="hidden" name="problemOldText" value="<%= problem.content[i].sectionText %>">
+		    		New text: <textarea name="problemNewText" rows="10" cols="100" class="span9"><%= problem.content[i].sectionText %></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn">Save</button>
+				</div>
+			</form>
+   		<!-- </div>
+   	</div> -->
+   </div>
