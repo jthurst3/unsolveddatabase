@@ -12,3 +12,16 @@ Change alert pop-ups from bad forms to Bootstrap alerts
 Put more emphasis on forum for discussing problems, rather than resource for learning about them
 Fix article layout so section titles don't take up most of the space
 Contact info -- put personal website
+Spreading the word
+	Ask David Ross and other RIT professors what it would take for them to start using the site as a collaboration tool
+	Ask URCS students about how better to design the site
+	CSC200/CSC280 research problems posted?
+	Ask professors about how they collaborate with others to solve unsolved problems/research questions
+Connect Gravatar profiles for users (and use StackOverflow idea of points for users)
+Site redesign:
+	Sections of problem pages:
+		About
+		FAQ
+		Forums
+		Publications
+	Dashboards for users should track edit changes in different ways
